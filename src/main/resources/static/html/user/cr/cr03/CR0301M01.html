@@ -68,6 +68,32 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.css">
     <link rel="stylesheet" href="/static/css/ax5/ax5menu.css">
 
+   <script src="/static/js/jquery-latest.min.js"></script>
+   <script src="/static/js/jquery.serializeObject.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+     <script src="/static/bootstrap/js/bootstrap-datepicker.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-datepicker.ko.min.js"></script>
+    <script src="/static/js/moment/moment-with-locales.js"></script>
+    <script src="/static/js/ax5/ax5core.min.js"></script>
+    <script src="/static/js/ax5/ax5calendar.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.rawgit.com/ax5ui/ax5ui-formatter/master/dist/ax5formatter.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.min.js"></script>
+    <script src="/static/js/ax5/ax5grid.min.js"></script>
+    <script src="/static/js/ax5/ax5mask.min.js"></script>
+    <script src="/static/js/ax5/ax5modal.min.js"></script>
+    <script src="/static/js/ax5/ax5toast.min.js"></script>
+    <script src="/static/js/jstree/jstree.min.js"></script>
+    <script src="/static/js/ax5/ax5menu.min.js"></script>
+
+
+    <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/static/js/global.js"></script>
+    <script src="/static/js/fileTree.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
    
     <style>
 
@@ -221,4 +247,169 @@
 <div data-ax5grid="excel-grid" data-ax5grid-config="{}" style="display: none;"></div>
 
 </body>
+
+<script type="text/javascript">
+    var authId = null;
+    var authRole = null;
+    var actionType = null;
+
+    var originalData = [
+        // 데이터를 여기에 넣습니다.
+    ];
+
+    var gridView = {
+        initView: function () {
+            this.target = new ax5.ui.grid();
+            this.target.setConfig({
+                height: "250px",
+                showRowSelector: true,
+                multipleSelect: false,
+                sortable: true,
+                target: $('[data-ax5grid="first-grid"]'),
+                header: {
+                    align: "center",
+                    selector: false
+                },
+                body: {
+                    onDBLClick: function () {
+                        this.self.select(this.dindex);
+                        //var item = this.item; // 선택된 행의 데이터
+                        //var coCd = item.coCd; // 선택된 행의 coCd 값
+                        //var estNo = item.estNo; // 선택된 행의 coCd 값
+                        // selectEstInfo 함수 호출
+                        var paramObj = {
+                            //"coCd": coCd,
+                            //"estNo": estNo
+                        };
+                        /* handleClickEvent(this.item); */
+                        $(".EST ,.file").css("visibility", "visible");
+
+                    },
+                    onClick: function () {
+
+                        this.self.select(this.dindex);
+                        var item = this.item; // 선택된 행의 데이터
+                        var salesCd = item.salesCd; // 선택된 행의 coCd 값
+                        //var estNo = item.estNo; // 선택된 행의 coCd 값
+                        // selectEstInfo 함수 호출
+                        var paramObj = {
+                            "salesCd": salesCd,
+                            //"estNo": estNo
+                        };
+                        handleClickMainEvent(this.item);
+                        $(".EST ,.file").css("visibility", "visible"); 
+
+                    },
+                },
+                page: {
+                    navigationItemCount: 9,
+                    height: 30,
+                    display: true,
+                    firstIcon: '<i class="fa fa-step-backward" aria-hidden="true"></i>',
+                    prevIcon: '<i class="fa fa-caret-left" aria-hidden="true"></i>',
+                    nextIcon: '<i class="fa fa-caret-right" aria-hidden="true"></i>',
+                    lastIcon: '<i class="fa fa-step-forward" aria-hidden="true"></i>',
+                    onChange: function () {
+                        gridView.setData(this.page.selectPage);
+                    }
+                },
+                columns: [             
+                	{key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                    {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                    {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                    {key: "partNo", label: "Part", align: "center", width: 80},
+                    {key: "revNo", label: "Rev", align: "center", width: 80},
+                    {key: "revNo", label: "품번", align: "center", width: 80},//?matrNo
+                    {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm
+                    {key: "matrMat", label: "소재", align: "center", width: 80},
+                    {key: "matrMat", label: "MAKER", align: "center", width: 80},//?matrMakrNm
+                    {key: "matrMno", label: "형번", align: "center", width: 80},
+                    {key: "matrSpec", label: "규격", align: "center", width: 80},
+                    {key: "matrSpec", label: "수량", align: "center", width: 80},//?
+                    {key: "matrSpec", label: "기능버튼", align: "center", width: 80},//? */
+                ],
+            });
+            return this;
+        },
+        setData: function (_pageNo) {
+            var gridViewIn = this.target;
+            if (inputValidation($('input[required]'))) {
+                var formData = {
+                    "coCd": $('#coCd_S').val(),
+                    "salesCd": $("#salesCd_S").val().replace(/\-/g, ''),
+                    "ordrsClntCd": $("#ordrsClntCd_S").val().replace(/\-/g, ''),
+                    "clntPjt": $("#clntPjt_S").val(),
+                    "prdtId": $("#prdtId_S").val(),//제품구분
+                    "itemList": $("#itemList_S").val(),//아이템구분
+                    "eqpNm": $("#eqpNm_S").val(),//설비명설비명
+
+                }
+                postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+                    var list = data.estList;
+
+                    // 원래 배열에서의 인덱스를 추적하는 새로운 필드 추가
+                    for (let i = 0; i < list.length; i++) {
+                        list[i].originalIndex = i;
+                    }
+
+                    // "estNo"와 원래 인덱스를 기준으로 정렬하기
+                    /* list.sort(function (a, b) {
+                        var numA = parseInt(a.estNo.replace(/\D/g, ''));
+                        var numB = parseInt(b.estNo.replace(/\D/g, ''));
+                        if (numA != numB) {
+                            return numA - numB;
+                        } else {
+                            return a.originalIndex - b.originalIndex;
+                        }
+                    }); */
+                    console.log(list)
+                    originalData = list;
+                    if (list.length === 0) {
+                        gridViewIn.setData({
+                            list: [],
+                            page: {
+                                currentPage: _pageNo,
+                                pageSize: data.paginationInfo.pageSize,
+                                totalElements: list.length,
+                                totalPages: data.paginationInfo.totalPageCount
+                            }
+                        });
+                    } else {
+                    	gridViewIn.setData({
+                            list: list,
+                            page: {
+                                currentPage: _pageNo,
+                                pageSize: data.paginationInfo.pageSize,
+                                totalElements: list.length,
+                                totalPages: data.paginationInfo.totalPageCount
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }
+    
+    //화면로드시
+    $(document).ready(function () {
+        //excelView.initView();
+        gridView.initView();
+        gridView.initView().setData(0);
+        //$("#coCd_S").focus();
+        mainDefaultLoad("영업관리", "구매 BOM 등록");
+        setCommonSelect($("#main_area select[data-kind]"));
+        //$("#coCd_S").val(jwt.coCd);
+        //setByCoCd($("#coCd_S").val());
+    })
+    
+    function initSearch() {
+    	$(".table_input.type04 input[type='text']").val("");
+    	
+    	// 회사 선택 상자 값 설정
+        //$("#coCd_S").val(jwt.coCd);
+        // 그리드 뷰 초기화
+        gridView.initView().setData(0);
+    }
+
+</script>
 </html>

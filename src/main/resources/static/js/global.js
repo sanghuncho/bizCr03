@@ -212,7 +212,7 @@ var openThirdModal = function(url, width, height, title, paramObj, callback) {
 function parseJwt(token) {
 	
 	console.log('parseJwt !!!');
-	if(token == null) {
+	/*if(token == null) {
 		if(location.href.search("/static/index.html") != -1  || location.href.search("/static/mobile/index.html") != -1 )  {			
 			return;
 		}else{
@@ -222,7 +222,7 @@ function parseJwt(token) {
 				location.href = "/static/index.html";
 			}
 		}		
-	}
+	}*/
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
