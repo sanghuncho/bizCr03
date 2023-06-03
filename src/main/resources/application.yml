@@ -1,0 +1,28 @@
+server:
+  port: 80
+
+#spring.datasource.url=jdbc:postgresql://localhost:5432/gunyang
+#spring.datasource.username=postgres
+#spring.datasource.password=gkooadmin
+
+#spring.sql.init.mode=always
+
+#Configure the xml Mapping path
+
+#Configure entity category names
+#mybatis.type-aliases-package=com.dksys.biz.user.cr.cr03.model
+
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gunyang
+    username: postgres
+    password: gkooadmin
+    driverClassName: org.postgresql.Driver
+  sql:
+    init.mode: always
+
+mybatis:
+  type-aliases-package: com.dksys.biz.user.cr.cr03.model
+  mapper-locations: classpath:mapper/UserMapper.xml
