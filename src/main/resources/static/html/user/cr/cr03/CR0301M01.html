@@ -6,13 +6,11 @@
         visibility: hidden;
     }
 
-
     .grid-cell-blue {
         background: #dcf0f8;
     }
 
     .file, .EST {
-
         min-height: 800px;
         float: left;
     }
@@ -62,8 +60,7 @@
 
     <link rel="stylesheet" href="/static/css/sub.css"/>
 
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.rawgit.com/ax5ui/ax5ui-calendar/master/dist/ax5calendar.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-calendar/master/dist/ax5calendar.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.css">
     <link rel="stylesheet" href="/static/css/ax5/ax5menu.css">
@@ -74,20 +71,19 @@
      <script src="/static/bootstrap/js/bootstrap-datepicker.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap-datepicker.ko.min.js"></script>
     <script src="/static/js/moment/moment-with-locales.js"></script>
-    <script src="/static/js/ax5/ax5core.min.js"></script>
-    <script src="/static/js/ax5/ax5calendar.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdn.rawgit.com/ax5ui/ax5ui-formatter/master/dist/ax5formatter.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.min.js"></script>
-    <script src="/static/js/ax5/ax5grid.min.js"></script>
+    <!-- <script src="/static/js/ax5/ax5core.min.js"></script>-->
+    <script src="/static/js/ax5/ax5calendar.min.js"></script> 
+    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-formatter/master/dist/ax5formatter.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.min.js"></script>
+    <!-- <script src="/static/js/ax5/ax5grid.min.js"></script> -->
     <script src="/static/js/ax5/ax5mask.min.js"></script>
     <script src="/static/js/ax5/ax5modal.min.js"></script>
     <script src="/static/js/ax5/ax5toast.min.js"></script>
     <script src="/static/js/jstree/jstree.min.js"></script>
     <script src="/static/js/ax5/ax5menu.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5core/master/dist/ax5core.min.js"></script>
+	<script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-grid/master/dist/ax5grid.min.js"></script>
 
 
     <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -221,15 +217,21 @@
         <div class="ax5_grid">
             <ul class="ul_list type03-est">
                 <li>
+                	<div class="table_list_tit">
+                	</div>
                     <div>
-                        <div data-ax5grid="first-grid" data-ax5grid-config="{}" style="height: 250px; width: 100%"></div>
-                    </div>
+                   		<div data-ax5grid="test-grid" data-ax5grid-config="{}" style="height: 250px; width: 100%;"></div>
+                   	</div>
                 </li>
                 <li>
                     <div class="table_list_tit">
                     </div>
                     <div>
-                        <div data-ax5grid="est-grid" data-ax5grid-config="{}" style="height: 250px; width: 100%;"></div>
+						<div data-ax5grid="initial-grid" data-ax5grid-config="{showRowSelector: true,
+		                    multipleSelect: true,
+		                    lineNumberColumnWidth: 40,
+		                    rowSelectorColumnWidth: 27,}" style="height: 300px;width: 100%;"></div>
+		                <!-- <div data-ax5grid="est-grid" data-ax5grid-config="{}" style="height: 250px; width: 100%;"></div> -->
                     </div>
                 </li>
             </ul>
@@ -243,8 +245,8 @@
            </div>
         </div>
     </div>
+    
 </div>
-<div data-ax5grid="excel-grid" data-ax5grid-config="{}" style="display: none;"></div>
 
 </body>
 
@@ -262,43 +264,30 @@
             this.target = new ax5.ui.grid();
             this.target.setConfig({
                 height: "250px",
+               
                 showRowSelector: true,
                 multipleSelect: false,
                 sortable: true,
-                target: $('[data-ax5grid="first-grid"]'),
+                target: $('[data-ax5grid="test-grid"]'),
                 header: {
                     align: "center",
                     selector: false
                 },
                 body: {
-                    onDBLClick: function () {
+                	onDBLClick: function () {
                         this.self.select(this.dindex);
-                        //var item = this.item; // 선택된 행의 데이터
-                        //var coCd = item.coCd; // 선택된 행의 coCd 값
-                        //var estNo = item.estNo; // 선택된 행의 coCd 값
-                        // selectEstInfo 함수 호출
-                        var paramObj = {
-                            //"coCd": coCd,
-                            //"estNo": estNo
-                        };
-                        /* handleClickEvent(this.item); */
+                        var item = this.item; // 선택된 행의 데이터
+                        var coCd = item.coCd; // 선택된 행의 coCd 값
+                        handleDBlCLickEvent(this.item);
                         $(".EST ,.file").css("visibility", "visible");
 
                     },
                     onClick: function () {
-
-                        this.self.select(this.dindex);
+                    	this.self.select(this.dindex);
                         var item = this.item; // 선택된 행의 데이터
-                        var salesCd = item.salesCd; // 선택된 행의 coCd 값
-                        //var estNo = item.estNo; // 선택된 행의 coCd 값
-                        // selectEstInfo 함수 호출
-                        var paramObj = {
-                            "salesCd": salesCd,
-                            //"estNo": estNo
-                        };
-                        handleClickMainEvent(this.item);
-                        $(".EST ,.file").css("visibility", "visible"); 
-
+                        var coCd = item.coCd; // 선택된 행의 coCd 값
+                    	handleClickMainEvent(this.item);
+                    	$(".EST ,.file").css("visibility", "visible"); 
                     },
                 },
                 page: {
@@ -319,14 +308,14 @@
                     {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
                     {key: "partNo", label: "Part", align: "center", width: 80},
                     {key: "revNo", label: "Rev", align: "center", width: 80},
-                    {key: "revNo", label: "품번", align: "center", width: 80},//?matrNo
-                    {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm
-                    {key: "matrMat", label: "소재", align: "center", width: 80},
-                    {key: "matrMat", label: "MAKER", align: "center", width: 80},//?matrMakrNm
+                    {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                    {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                    {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                    {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
                     {key: "matrMno", label: "형번", align: "center", width: 80},
                     {key: "matrSpec", label: "규격", align: "center", width: 80},
-                    {key: "matrSpec", label: "수량", align: "center", width: 80},//?
-                    {key: "matrSpec", label: "기능버튼", align: "center", width: 80},//? */
+                    {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                    /* {key: "matrSpec", label: "기능버튼", align: "center", width: 80}, */// 임시 생략
                 ],
             });
             return this;
@@ -390,17 +379,366 @@
         }
     }
     
+    function fetchCurrencyData() {
+        var paramObj = {"codeKind": "UNITDIV", "useYn": "Y"};
+        var paramObj2 = {"codeKind": "ESTDIV", "useYn": "Y"};
+
+        var promise1 = new Promise(function (resolve, reject) {
+            postAjax("/admin/cm/cm05/selectCodeList", paramObj, null, function (data) {
+                if (data && data.codeList) {
+                    var codeList = data.codeList;
+                    var options = codeList.map(function (code) {
+                        return {
+                            value: code.codeNm,
+                            text: code.codeNm
+                        };
+                    });
+                    resolve(options);
+                } else {
+                    console.error("codeList is undefined. Check the AJAX response:", data);
+                    reject(data);
+                }
+            });
+        });
+
+        var promise2 = new Promise(function (resolve, reject) {
+            postAjax("/admin/cm/cm05/selectCodeList", paramObj2, null, function (data) {
+                if (data && data.codeList) {
+                    var codeList = data.codeList;
+                    var options2 = codeList.map(function (code) {
+                        return {
+                            value: code.codeNm,
+                            text: code.codeNm
+                        };
+                    });
+                    resolve(options2);
+                } else {
+                    console.error("codeList is undefined. Check the AJAX response:", data);
+                    reject(data);
+                }
+            });
+        });
+
+        return Promise.all([promise1, promise2]);
+    }
+    
+    let selectedRowKey;
+    let previousSelectedRowKey;
+    let selectedPrdtCd;
+    let selectedPrdtNm;
+    const estGrid = new ax5.ui.grid();
+    fetchCurrencyData().then(function ([options, options2]) {
+        estGrid.setConfig({
+            target: $('[data-ax5grid="est-grid"]'),
+            header: {
+                align: "center",
+                selector: false
+            },
+            columns: [
+                {
+                    key: "estSeq", label: "번호", width: 40, align: "center", formatter: function () {
+                        return this.item.__index + 1;
+                    },
+                },
+
+                {
+                    key: "estDtlDiv", label: "Sales Code", width: 100, align: "center", editor: {
+                        type: "select",
+                        config: {
+                            columnKeys: {
+                                optionValue: 'value',
+                                optionText: 'text'
+                            },
+                            options: options2,
+
+
+                        }
+                    }
+                },
+                {
+                    key: "estComm", label: "Part", align: "left", width: 100, editor: {
+                        type: "text"
+
+
+                    }
+                },
+                {key: "estSpec", label: "Unit", align: "left", width: 100, editor: {type: "text"}},
+                {
+                    key: "estUnit", label: "Rev", align: "center", width: 100, editor: {
+                        type: "select",
+                        config: {
+                            columnKeys: {
+                                optionValue: 'value',
+                                optionText: 'text'
+                            },
+                            options: options // 서버에서 가져온 데이터를 사용
+                        },
+                        event: {
+                            'blur': function () {
+                                // logic to select the next input field and focus it
+                            },
+                            'keydown': function (e) {
+                                if (e.keyCode == 9) { // tab key
+                                    // logic to select the next input field and focus it
+                                }
+                            }
+                        }
+                    }
+                },
+
+
+                {key: "estQty", label: "도번", align: "right", width: 100, editor: {type: "number"}, formatter: "money"},
+                {key: "estUpr", label: "품번", align: "right", width: 100, editor: {type: "number"}, formatter: "money"},
+                {
+                    key: "estAmt", label: "품명", width: 100, align: "right", formatter: function () {
+                        color = '#0000FF';
+                        const sum = this.item.estQty * this.item.estUpr;
+                        return '<div style="color: ' + color + '">' + sum.toLocaleString('en-US') + '</div>';
+
+                    }
+                },
+                {key: "estRmk", label: "소재", align: "center", width: 80, editor: {type: "text"}},
+                {key: "estRmk", label: "MAK ER", align: "center", width: 80, editor: {type: "text"}},
+                {key: "estRmk", label: "형번", align: "center", width: 80, editor: {type: "text"}},
+                {key: "estRmk", label: "규격", align: "center", width: 80, editor: {type: "text"}},
+                {key: "estRmk", label: "용도", align: "center", width: 80, editor: {type: "text"}},
+                {key: "estRmk", label: "유형", align: "center", width: 80, editor: {type: "text"}},
+                {key: "estRmk", label: "후행업체", align: "center", width: 80, editor: {type: "text"}},
+            ],
+
+            footSum: [
+                [
+                    {label: "총합계", align: "center", colspan: 7},
+                    {key: "estAmtAll", collector: "sum", formatter: "money", align: "right"},
+                ]
+            ],
+            body: {
+                grouping: {
+                    by: ["estDtlDiv"],
+                    columns: [
+                        {label: "소계", colspan: 7, align: "center"},
+                        {
+                            key: "estAmtMid",
+                            collector: function () {
+                                let sum = 0;
+                                this.list.forEach(function (n) {
+                                    if (!n.__grouping) sum += n.estQty * n.estUpr;
+                                });
+                                return sum;
+                                //중간소계
+                            },
+                            formatter: "money",
+                            align: "right",
+                        },
+                    ],
+
+                },
+                onClick: function () {
+                    this.self.clearSelect();
+                    this.self.select(this.dindex);
+                    const subtotalRowsBeforeIndex = countSubtotalRowsBeforeIndex(this, this.dindex);
+                    const realIndex = this.dindex - subtotalRowsBeforeIndex;
+                    selectedRowKey = realIndex;
+                    if (this.column.key == 'estComm') {
+                        var _this = this;
+
+                        // 선택된 행의 "estDtlDiv"값을 가져옵니다.
+                        let estDtlDivValue = estGrid.list[selectedRowKey].estDtlDiv;
+
+                        // 만약 "estDtlDiv"값이 "제작품"이라면 openPrdtSearch 함수를 호출합니다.
+
+                    }
+
+                }
+            },
+            contextMenu: {
+                iconWidth: 20,
+                acceleratorWidth: 100,
+                itemClickAndClose: false,
+                icons: {
+                    'arrow': '<i class="fa fa-caret-right"></i>'
+                },
+                items: [
+                    {type: 1, label: "붙여넣기"},
+                    {divide: true},
+                    {
+                        label: "작업선택",
+                        items: [
+                            {type: 1, label: "줄추가"},
+                            {type: 1, label: "내용 삭제"},
+                            {type: 2, label: "줄삭제"},
+                        ]
+                    },
+                ],
+                popupFilter: function (item, param) {
+                    //console.log(item, param);
+                    if (param.element) {
+                        return true;
+                    } else {
+                        return item.type == 1;
+                    }
+                },
+
+                onClick: function (item, param) {
+                    console.log(item, param);
+                    thisGridRow = param.dindex;
+                    thisGridCol = param.colIndex;
+
+                    if (item.label == "붙여넣기") {
+                        gridPaste(thisGridRow, thisGridCol);
+                    } else if (item.label == "줄추가") {
+                        console.log('추가 인덱스 :', param.dindex);
+                        //.addRow(추가할 내용, 삽인할위치(생략시 마지막),갯수)
+                        estGrid.addRow($.extend({}, estGrid.list[param.dindex], {__index: undefined}), param.dindex + 1,);
+                        estGrid.setValue(param.dindex, 'updcheck', 1);
+
+                    } else if (item.label == "내용 삭제") {
+                        console.log('내용삭제 인덱스 :', param.dindex);
+
+                        estGrid.config.columns.forEach((column) => {
+                            estGrid.setValue(param.dindex, column.key, '');
+                            estGrid.setValue(param.dindex, 'updcheck', 1);
+                            console.log('내용삭제 :', param.dindex, column.key);
+                        });
+
+                    } else if (item.label == "줄삭제") {
+                        console.log('삭제 인덱스 :', param.dindex);
+                        const subtotalRowsBeforeIndex = countSubtotalRowsBeforeIndex(estGrid, param.dindex);
+                        const realIndex = param.dindex - subtotalRowsBeforeIndex;
+                        estGrid.removeRow(realIndex);
+                    }
+
+
+                    estGrid.contextMenu.close();
+                    //또는 return true;
+
+                }
+            }
+
+        });
+
+
+        estGrid.setColumnSort({
+            "estSeq": {orderBy: "asc", seq: 0},
+        });
+        let isUpdating = false;  // isUpdating 플래그 선언
+        estGrid.onDataChanged = function () {
+
+            if (this.item.estDtlDiv == undefined || isUpdating) {
+                return;
+            } else {
+                isUpdating = true;  // 업데이트 시작을 표시
+
+                const data = estGrid.getList();
+                data.forEach((item, index) => {
+                    item.estAmtAll = item.estQty * item.estUpr;  // 합계 계산 및 설정
+                });
+                estGrid.setData({
+                    list: data,
+                    page: {
+                        totalElements: data.length
+                    }
+                });
+                isUpdating = false;  // 업데이트 종료를 표시
+            }
+
+
+        };
+        let checkDataInterval = null;
+
+        estGrid.onLoad = function () {
+            checkDataInterval = setInterval(() => {
+                const data = estGrid.getList();
+
+                // 데이터가 로드되었는지 확인합니다.
+                if (data.length > 0) {
+                    clearInterval(checkDataInterval);  // 데이터가 로드되었다면 체크를 중단합니다.
+
+                    data.forEach((item, index) => {
+                        item.estAmtAll = item.estQty * item.estUpr;  // 합계 계산 및 설정
+                    });
+
+
+                    estGrid.setData({
+                        list: data,
+                        page: {
+                            totalElements: data.length
+                        }
+                    });
+                }
+            }, 100);
+        };
+    })
+    
     //화면로드시
     $(document).ready(function () {
         //excelView.initView();
         gridView.initView();
-        gridView.initView().setData(0);
+        //gridView.initView().setData(0);
         //$("#coCd_S").focus();
         mainDefaultLoad("영업관리", "구매 BOM 등록");
         setCommonSelect($("#main_area select[data-kind]"));
         //$("#coCd_S").val(jwt.coCd);
         //setByCoCd($("#coCd_S").val());
+        
+		
     })
+    
+    async function handleDBlCLickEvent(item) {
+		var initalGrid = new ax5.ui.grid();
+	        
+        initalGrid.setConfig({
+            target: $('[data-ax5grid="initial-grid"]'),
+            columns: [
+                /* {key: "a", label: "field A"},
+                {key: "b", label: "field B"},
+                {key: "c", label: "numbers C"},
+                {key: "d", label: "field D"},
+                {key: "e", label: "field E"},
+                {key: "f", label: "field F"},
+                {key: "g", label: "field G"},
+                {key: "h", label: "field H"} */
+                {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                {key: "partNo", label: "Part", align: "center", width: 80},
+                {key: "revNo", label: "Rev", align: "center", width: 80},
+                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
+                {key: "matrMno", label: "형번", align: "center", width: 80},
+                {key: "matrSpec", label: "규격", align: "center", width: 80},
+                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                {key: "matrSpec", label: "기능버튼", align: "center", width: 80, formatter: function(){
+                	if(this.item.matrSaftQty > 0){
+	                    return "자재정보수정";
+                	} else {
+	                    return "";
+                	}
+                }}, // 임시 생략
+            ]
+        });
+        
+        var dataTest = [
+        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrSpec:"G"},
+        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrSpec:"G"}]
+        initalGrid.setData(dataTest);
+    }
+    
+    async function handleClickMainEvent(item) {
+    	console.log("handleClickMainEvent")
+    }
+    
+    async function updateDetailGrid(item) {
+    	console.log("updateDetailGrid")
+    }
+    
+    function insertProjectModal(type) {
+        var paramObj = {"actionType": type};
+        openModal("/static/html/user/cr/cr03/CR0302P01.html", 1400, 736, "", paramObj);
+        treeModule.initFileArrays();
+    }
     
     function initSearch() {
     	$(".table_input.type04 input[type='text']").val("");
@@ -408,8 +746,28 @@
     	// 회사 선택 상자 값 설정
         //$("#coCd_S").val(jwt.coCd);
         // 그리드 뷰 초기화
-        gridView.initView().setData(0);
+        gridView.initView()
     }
+    
+    function loadEstDegrees() {
+         var maxEstDeg = 1; // maxEstDeg를 숫자로 변환
+         var selectElem = document.getElementById("estDeg_S");
+         selectElem.innerHTML = ""; // 기존 옵션 초기화
 
+         // '전체' 옵션을 생성하고 추가
+         var allOptionElem = document.createElement("option");
+         allOptionElem.value = "";
+         allOptionElem.text = "전체";
+         selectElem.add(allOptionElem);
+
+         for (var i = 1; i <= maxEstDeg; i++) {
+             var optionElem = document.createElement("option");
+             optionElem.value = i;
+             optionElem.text = i;
+             selectElem.add(optionElem);
+         }
+         console.log('Updated select element:', selectElem); // 업데이트된 selectElem 로깅
+    }
+           
 </script>
 </html>
