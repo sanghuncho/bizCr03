@@ -689,6 +689,15 @@
 	        
         initalGrid.setConfig({
             target: $('[data-ax5grid="initial-grid"]'),
+            body: {
+                onClick: function () {
+                	if(this.column.key == 'matrBtn'){
+                		this.self.select(this.dindex);
+                        var item = this.item; // 선택된 행의 데이터
+                        handleClickMatBtn(this.item);
+                	}
+                },
+            },
             columns: [
                 /* {key: "a", label: "field A"},
                 {key: "b", label: "field B"},
@@ -710,7 +719,7 @@
                 {key: "matrMno", label: "형번", align: "center", width: 80},
                 {key: "matrSpec", label: "규격", align: "center", width: 80},
                 {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
-                {key: "matrSpec", label: "기능버튼", align: "center", width: 80, formatter: function(){
+                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
                 	if(this.item.matrSaftQty > 0){
 	                    return "자재정보수정";
                 	} else {
@@ -721,13 +730,18 @@
         });
         
         var dataTest = [
-        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrSpec:"G"},
-        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrSpec:"G"}]
+        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
+        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
         initalGrid.setData(dataTest);
     }
     
     async function handleClickMainEvent(item) {
     	console.log("handleClickMainEvent")
+    }
+    async function handleClickMatBtn(item) {
+    	if(item.matrSaftQty > 0){
+    		alert("자재정보수정 클릭")
+    	}
     }
     
     async function updateDetailGrid(item) {
