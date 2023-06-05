@@ -107,10 +107,10 @@
                         <td colspan="1">
                             <input type="text" id="cstmMngNm" name="cstmMngNm">
                         </td>
-                        <!-- <th class="" title="담당자 연락처 정보를 입력합니다">담당자 연락처</th>
+                        <th class="" title="담당자 연락처 정보를 입력합니다">담당자 연락처</th>
                         <td>
                             <input type="text" id="cstmMngHp" name="cstmMngHp">
-                        </td> -->
+                        </td>
                         <th class="" title="견적제출자 정보를 확인합니다">설비명</th>
                         <td colspan="1">
                             <div class="search_form">
@@ -169,10 +169,10 @@
             <div class="" style="padding-left: 0;">
                 <div id="est_grid" class="contents"
                      style="margin:0px; padding:0px; height: 380px; width: 100%; min-width: 200px;border-radius:0;">
-                    <!-- <div style="float:right" style="" class="add_btn pdl10">
+                    <div style="float:right" style="" class="add_btn pdl10">
                         <a id="addProductButton" style="margin-top:8px">+</a>
                         <a id="deleteProductButton" style="margin-top:8px;margin-right:8px;">-</a>
-                    </div> -->
+                    </div>
 
                     <h3 class="location">
                         <a class="file_tag" id="file_tag"
@@ -181,7 +181,7 @@
                     </h3>
                     <div class="rowSideBySide">
 	                    <div class="columnSideBySide">
-					        <!-- 콘텐츠 타이틀 -->
+					        콘텐츠 타이틀
 					        <div class="contents_tit">
 					            <div>
 					                <div class="add_btn_small pdl10" style="margin-right:8px;">
@@ -239,22 +239,21 @@
 				                            authchk>
 				                        	첨부파일
 				                    </button>
-				                    <!--           <button  type="button" id="zip_down" class=""
+				                              <button  type="button" id="zip_down" class=""
 				                                       style="display:none;height: 25px; line-height: 15px;"
 				                                       authchk>
 				                                   파일 전체 다운로드
-				                               </button>-->
+				                               </button>
 				                    <div class="ax5_grid" data-ax5grid="file-grid-popup" data-ax5grid-config="{}"
 				                         style="height: 300px; width: 95%;margin: auto;"></div>
 				                </div>
 				            </div>
 				        </div>
 				    </div>
-				    <!-- 첨부파일 end -->
-				    <!-- 구매, 자제정보 -->
+				    <!-- 첨부파일 end
+				    구매, 자제정보 -->
 				    <div class="rowSideBySide">
 	                    <div class="columnSideBySide">
-					        <!-- 콘텐츠 타이틀 -->
 					        <div class="contents_tit">
 					            <div>
 					                <div class="add_btn_small pdl10" style="margin-right:8px;">
@@ -268,7 +267,6 @@
 		                    </div>
 		                </div>
 		                <div class="columnSideBySide">
-		                	<!-- 콘텐츠 타이틀 -->
 					        <div class="contents_tit">
 					            <div>
 					                <div class="add_btn_small pdl10" style="margin-right:8px;">
@@ -288,7 +286,7 @@
         </div>
     </div>
     <br>
-    <!-- 하단 버튼 -->
+    하단 버튼
     <div class="popup_bottom_btn">
         <button id="actionBtn" authchk>등록</button>
         <button class="close_btn" onclick="  modalStack.close();">닫기</button>
@@ -1784,7 +1782,7 @@
         return true;
     }
 
-    /* function openPrdtSearch(gridIn) {
+    function openPrdtSearch(gridIn) {
         var paramObj = {
             "coCd": $('#coCd').val(),
             "prdtCd": $('#prdtId_S').val(),
@@ -1798,34 +1796,5 @@
 
         });
     }
- */
-    /* function setPrdtDiv(elem, target) {
-        prdtDivTarget = target;
-
-        if ($(elem).val() != '') {
-            var paramObj = {"codeKind": $(elem).val()};
-            postAjaxSync("/admin/cm/cm05/selectChildCodeList", paramObj, null, function (data) {
-                var optionHtml = '<option value="">전체</option>';
-                var childCodeList = data.childCodeList;
-                $.each(childCodeList, function (index, obj) {
-                    optionHtml += '<option value=' + obj.codeId + '>';
-                    optionHtml += obj.codeNm;
-                    optionHtml += '</option>';
-                });
-                if (prdtDivTarget == "main") {
-                    $('[data-search="prdtDiv"]').html(optionHtml);
-                } else if (prdtDivTarget == "popup") {
-                    $('#prdtDiv').html(optionHtml);
-                }
-            });
-        } else {
-            var optionHtml = '<option value="">전체</option>';
-            $('[data-search="prdtDiv"]').html(optionHtml);
-        }
-    } */
-
-    /* function focusOnGrid() {
-    	wstgrid.focus(0, 'estSeq');
-    } */
 </script>
 </html>

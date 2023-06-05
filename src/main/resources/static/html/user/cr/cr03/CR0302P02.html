@@ -1816,48 +1816,8 @@
         return true;
     }
 
-    /* function openPrdtSearch(gridIn) {
-        var paramObj = {
-            "coCd": $('#coCd').val(),
-            "prdtCd": $('#prdtId_S').val(),
-            "prdtNm": $('#prdtNm_S').val(),
-            "useYn": "Y"
-        }
-        openSecondModal("/static/html/cmn/modal/prdtSearch.html", 800, 600, "제품 검색", paramObj, function (grid2) {
-            var row = grid2.target.getList("selected")[0];
-            gridIn.item.estComm = row.prdtNm;
-            gridIn.self.repaint();
-
-        });
-    }
- */
-    /* function setPrdtDiv(elem, target) {
-        prdtDivTarget = target;
-
-        if ($(elem).val() != '') {
-            var paramObj = {"codeKind": $(elem).val()};
-            postAjaxSync("/admin/cm/cm05/selectChildCodeList", paramObj, null, function (data) {
-                var optionHtml = '<option value="">전체</option>';
-                var childCodeList = data.childCodeList;
-                $.each(childCodeList, function (index, obj) {
-                    optionHtml += '<option value=' + obj.codeId + '>';
-                    optionHtml += obj.codeNm;
-                    optionHtml += '</option>';
-                });
-                if (prdtDivTarget == "main") {
-                    $('[data-search="prdtDiv"]').html(optionHtml);
-                } else if (prdtDivTarget == "popup") {
-                    $('#prdtDiv').html(optionHtml);
-                }
-            });
-        } else {
-            var optionHtml = '<option value="">전체</option>';
-            $('[data-search="prdtDiv"]').html(optionHtml);
-        }
-    } */
-
-    /* function focusOnGrid() {
+    function focusOnGrid() {
     	wstgrid.focus(0, 'estSeq');
-    } */
+    }
 </script>
 </html>

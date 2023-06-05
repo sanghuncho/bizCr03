@@ -53,7 +53,7 @@ if(isMobile()){
 }
 
 var authorizationToken = getCookie("jwtToken");
-var jwt = parseJwt(authorizationToken);
+//var jwt = parseJwt(authorizationToken);
 var menuIdx = getCookie("menuIdx");
 
 var mask = new ax5.ui.mask();
@@ -84,7 +84,7 @@ ModalStack.prototype.close = function(){
 var modalStack = new ModalStack();
 
 var ubiprefix = "";
-if(jwt){
+if(true){
 	switch (jwt.serverType){
     case "real" :
         ubiprefix = "http://erp.gunyangitt.com:8090/ubi4/ubihtml.jsp";
@@ -102,6 +102,48 @@ if(jwt){
     	//ubiprefix = "http://localhost:8090/ubi4/ubihtml.jsp";
 	}
 }
+
+
+function openModalPopUp(url, width, height, title, paramObj, callback) {
+	var mask = new ax5.ui.mask();
+	var modal = new ax5.ui.modal();
+	
+	modal.open({
+		header: {
+			title: title,
+	        btns: {
+	        	close: {
+	                label: '<i class="fa fa-times-circle" aria-hidden="true"></i>',
+	                onClick: function () {
+	                	modalStack.close();
+	                }
+	            }
+	        }
+	    },
+        width: width,
+        height: height,
+        closeToEsc: false,
+        onStateChanged: function () {
+            if (this.state === "open") {
+                mask.open();
+                var modalObj = {
+                	"target": this.self,
+                	"paramObj": paramObj,
+                	"callback": callback
+                }
+                modalStack.push(modalObj);
+            }
+            else if (this.state === "close") {
+                mask.close();
+            }
+        }
+    }, function () {
+    	var targetEl = this.$["body-frame"];
+    	$.get(url, function(data) {    	        
+    		targetEl.append(data);
+      	});
+    });
+};
 
 var openModal = function(url, width, height, title, paramObj, callback) {
 	modal.open({
@@ -209,10 +251,10 @@ var openThirdModal = function(url, width, height, title, paramObj, callback) {
     });
 };
 
-function parseJwt(token) {
+/*function parseJwt(token) {
 	
 	console.log('parseJwt !!!');
-	/*if(token == null) {
+	if(token == null) {
 		if(location.href.search("/static/index.html") != -1  || location.href.search("/static/mobile/index.html") != -1 )  {			
 			return;
 		}else{
@@ -222,7 +264,7 @@ function parseJwt(token) {
 				location.href = "/static/index.html";
 			}
 		}		
-	}*/
+	}
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -230,7 +272,7 @@ function parseJwt(token) {
     }).join(''));
 
     return JSON.parse(jsonPayload);
-};
+};*/
 
 
 function selectGridValidation(obj) {
@@ -284,14 +326,7 @@ function postAjax(url, data, contentType, callback) {
 	    	callback(data);
 	    },
         error: function (data) {
-        	if(tokenErrorMsg.indexOf(data.responseJSON.error) > -1) {
-//        		alert("토큰이 만료되었습니다.");
-				if(isMobile()){
-					location.href = "/static/mobile/index.html";
-				}else{
-					location.href = "/static/index.html";
-				}        		
-        	}
+        	
         }
 	});
 }
@@ -560,13 +595,13 @@ function deleteHyphenStr(value){
 var authArr;
 // 권한에 따른 메뉴 보여주기
 function setMenuAuth() {
-	var formData = {
+	/*var formData = {
 		"authInfo" : jwt.authInfo
 	}
 	postAjaxSync("/selectMenuAuth", formData, null, function(data) {
 		authArr = data.accessList;
 		checkMenuAuth(data.accessList);
-	});
+	});*/
 }
 	
 function checkMenuAuth(accessList) {
@@ -639,7 +674,7 @@ function mainDefaultLoad(menuNm, subMenuNm) {
 	$("#top_area").load("/static/html/top.html", function(){
 		$('#topMenu').text(menuNm);
 		$('#topSubMenu').text(subMenuNm);
-		$("#topUserNm").text(jwt.userNm);
+		/*$("#topUserNm").text(jwt.userNm);*/
 		setMenuAuth();
 	});
 }
@@ -963,4 +998,4 @@ function searchAndDelete(jstreeInstance, nodeId, topNode) {
 			}
 	    }
 	}
-}	
+}
