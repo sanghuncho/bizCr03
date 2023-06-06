@@ -32,12 +32,43 @@
                 <input type="hidden" id="pgmId" name="pgmId" value="CR0101M01">
                 <table>
                     <tr>
-                        <th class="" title="회사를 선택합니다">회사</th>
-                        <td>
-                            <input style="background-color:#ddd!important" type="text" id="estNo" name="estNo" readonly
-                            >
-                        </td>
+                        <th class="hit">회사</th>
+	                    <td>
+	                        <select id="coCd_S" style="width:100%;" data-kind="CO" onchange="gridView.setData(0);"
+	                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+	                    </td>
                         <th class="hit">Sales Code</th>
+	                    <td>
+	                        <input type="hidden" id="salesCd_S" name="salesCd_S">
+	                        <div class="search_form">
+	                            <input type="text" id="salesCdNm_S" name="salesCdNm_S">
+	                            <a onclick="opendSalesCdSearch($('#salesCdNm_S').val());">
+	                                <i class="i_search_w"></i>
+	                            </a>
+	                        </div>
+	                    </td>
+                        <th class="hit">회사</th>
+	                    <td>
+	                        <select id="coCd_S" style="width:100%;" data-kind="CO" onchange="gridView.setData(0);"
+	                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+	                    </td>
+                        <th class="hit">Sales Code</th>
+	                    <td>
+	                        <input type="hidden" id="salesCd_S" name="salesCd_S">
+	                        <div class="search_form">
+	                            <input type="text" id="salesCdNm_S" name="salesCdNm_S">
+	                            <a onclick="opendSalesCdSearch($('#salesCdNm_S').val());">
+	                                <i class="i_search_w"></i>
+	                            </a>
+	                        </div>
+	                    </td>
+                    </tr>
+                    <tr>
+                        <th class="">고객사</th>
 	                    <td>
 	                        <input type="hidden" id="ordrsClntCd_S" name="ordrsClntCd_S">
 	                        <div class="search_form">
@@ -48,12 +79,14 @@
 	                            </a>
 	                        </div>
 	                    </td>
-                        <th class="" title="회사를 선택합니다">회사</th>
-                        <td>
-                            <input style="background-color:#ddd!important" type="text" id="estNo" name="estNo" readonly
-                            >
-                        </td>
-                        <th class="hit">Sales Code</th>
+                        <th class="">고객사 PJT</th>
+	                    <td>
+	                        <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                    	</td>
+                    	
+                        <th class="">고객사</th>
 	                    <td>
 	                        <input type="hidden" id="ordrsClntCd_S" name="ordrsClntCd_S">
 	                        <div class="search_form">
@@ -64,96 +97,59 @@
 	                            </a>
 	                        </div>
 	                    </td>
-                    </tr>
-                    <tr>
-                        <th class="" title="작성일자를 선택합니다">고객사</th>
-                        <td>
-                            <input type="hidden" id="ordrsClntCd_S" name="ordrsClntCd_S">
+                        <th class="">고객사 PJT</th>
+	                    <td>
 	                        <div class="search_form">
-	                            <input type="text" id="ordrsClntNm_S" name="ordrsClntNm_S"
-	                                   >
-	                            <a onclick="opendClntSearch($('#ordrsClntNm_S').val());">
-	                                <i class="i_search_w"></i>
-	                            </a>
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
 	                        </div>
-                        </td>
-
-
-                        <th class="" title="발행일자를 확인합니다">고객PJT</th>
-                        <td>
-                            <input type="text" id="estAmt" name="estAmt" required>
-                        </td>
-                        <th class="" title="고객사를 선택합니다">고객사</th>
-                        <td>
-                            <input type="hidden" id="estClntCd" name="estClntCd">
-                            <div class="search_form">
-                                <input onkeydown="if(event.keyCode==13) openSecondClntSearch(this.value);" type="text"
-                                       id="estClntNm" name="estClntNm" required>
-                                <a onclick="openSecondClntSearch(document.getElementById('estClntNm').value);">
-                                    <i class="i_search_w"></i>
-                                </a>
-                            </div>
-                        </td>
-                        <th class="">고객사PJT</th>
-                        <td>
-                            <div class="search_form">
-                                <input onclick="" type="text" id="clntPjt" name="clntPjt"
-                                       value="">
-                            </div>
-                        </td>
+                    	</td>
                     </tr>
                     <tr>
-                        <th class="" title="고객담당자 정보를 입력합니다">설비명</th>
-                        <td colspan="1">
-                            <input type="text" id="cstmMngNm" name="cstmMngNm">
-                        </td>
-                        <th class="" title="담당자 연락처 정보를 입력합니다">담당자 연락처</th>
-                        <td>
-                            <input type="text" id="cstmMngHp" name="cstmMngHp">
-                        </td>
-                        <th class="" title="견적제출자 정보를 확인합니다">설비명</th>
-                        <td colspan="1">
-                            <div class="search_form">
-                                <input onkeydown="if(event.keyCode==13)openSecondUserSearch( this.value);" type="text"
-                                       id="mngIdVisible" name="mngIdVisible" required>
-                                <input type="hidden" id="mngId" name="mngId">
-                                <a onclick="openSecondUserSearch( document.getElementById('mngIdVisible').value);">
-                                    <i class="i_search_w"></i>
-                                </a>
-                            </div>
-                        </td>
+                        <th class="">설비명</th>
+	                    <td colspan="1">
+	                        <div class="search_form">
+	                            <input type="text" id="eqpNm_S" name="eqpNm_S" class="modal-eqpNm_S">
+	                        </div>
+	                    </td>
+	                    <th colspan="2"></th>
+	                    
+                        <th class="">설비명</th>
+	                    <td colspan="1">
+	                        <div class="search_form">
+	                            <input type="text" id="eqpNm_S" name="eqpNm_S" class="modal-eqpNm_S">
+	                        </div>
+	                    </td>
+	                    <th colspan="2"></th>
                     </tr>
                     <tr>
-                        <th class="" title="통화단위를 선택합니다">제품구분</th>
-                        <td>
-                            <input type="hidden" id="estClntCd" name="estClntCd">
-                            <div class="search_form">
-                                <input onkeydown="if(event.keyCode==13) openSecondClntSearch(this.value);" type="text"
-                                       id="estClntNm" name="estClntNm" required>
-                                <a onclick="openSecondClntSearch(document.getElementById('estClntNm').value);">
-                                    <i class="i_search_w"></i>
-                                </a>
-                            </div>
-                        </td>
-                        <th class="" title="견적금액을 입력합니다">아이템구분</th>
-                        <td>
-                            <input type="text" id="estAmt" name="estAmt" required>
-                        </td>
-                        <th class="" title="통화단위를 선택합니다">제품구분</th>
-                        <td>
-                            <input type="hidden" id="estClntCd" name="estClntCd">
-                            <div class="search_form">
-                                <input onkeydown="if(event.keyCode==13) openSecondClntSearch(this.value);" type="text"
-                                       id="estClntNm" name="estClntNm" required>
-                                <a onclick="openSecondClntSearch(document.getElementById('estClntNm').value);">
-                                    <i class="i_search_w"></i>
-                                </a>
-                            </div>
-                        </td>
-                        <th class="" title="견적금액을 입력합니다">아이템구분</th>
-                        <td>
-                            <input type="text" id="estAmt" name="estAmt" required>
-                        </td>
+                        <th class="">제품구분</th>
+	                    <td>
+							<select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+	                                required="required">
+	                            <option value="">선택</option>
+	                        </select>
+						</td>
+                        <th class="">아이템구분</th>
+	                    <td>
+	                        <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+	                                required="required">
+	                            <option value="">선택</option>
+	                        </select>
+	                    </td>
+                        <th class="">제품구분</th>
+	                    <td>
+							<select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+	                                required="required">
+	                            <option value="">선택</option>
+	                        </select>
+						</td>
+                        <th class="">아이템구분</th>
+	                    <td>
+	                        <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+	                                required="required">
+	                            <option value="">선택</option>
+	                        </select>
+	                    </td>
                     </tr>
                 </table>
             </form>
