@@ -223,7 +223,8 @@
                     <div class="table_list_tit">
                     </div>
                     <div>
-						<div data-ax5grid="initial-grid" data-ax5grid-config="{
+						<div data-ax5grid="initial-grid" data-ax5grid-config="{showRowSelector: true,
+-		                    multipleSelect: true,
 		                    lineNumberColumnWidth: 40,
 		                    rowSelectorColumnWidth: 27,}" style="height: 300px;width: 100%;"></div>
 		                <!-- <div data-ax5grid="est-grid" data-ax5grid-config="{}" style="height: 250px; width: 100%;"></div> -->
@@ -260,14 +261,14 @@
                     selector: false
                 },
                 body: {
-                	onDBLClick: function () {
+                	/* onDBLClick: function () {
                         this.self.select(this.dindex);
                         var item = this.item; // 선택된 행의 데이터
                         var coCd = item.coCd; // 선택된 행의 coCd 값
                         handleDBlCLickEvent(this.item);
                         $(".EST ,.file").css("visibility", "visible");
 
-                    },
+                    }, */
                     onClick: function () {
                     	this.self.select(this.dindex);
                         var item = this.item; // 선택된 행의 데이터
@@ -301,9 +302,8 @@
                     {key: "matrMno", label: "형번", align: "center", width: 80},
                     {key: "matrSpec", label: "규격", align: "center", width: 80},
                     {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
-                    /* {key: "matrSpec", label: "기능버튼", align: "center", width: 80}, */// 임시 생략
                 ],
-            });
+            });// end setConfig
             return this;
         },
         setData: function (_pageNo) {
@@ -362,7 +362,7 @@
                     }
                 });
             }
-        }
+        }//end setData
     }
     
     function fetchCurrencyData() {
@@ -662,7 +662,7 @@
         //gridView.initView();
         gridView.initView().setData(0);
         
-        $("#coCd_S").focus();
+        //$("#coCd_S").focus();
         mainDefaultLoad("영업관리", "구매 BOM 등록");
         setCommonSelect($("#main_area select[data-kind]"));
         
@@ -671,8 +671,12 @@
     })
     
     async function handleDBlCLickEvent(item) {
+    	console.log("handleDBlCLickEvent")
+    }
+    
+    async function handleDBlCLickEventT(item) {
+    	console.log("handleDBlCLickEvent")
 		var initalGrid = new ax5.ui.grid();
-	        
         initalGrid.setConfig({
             target: $('[data-ax5grid="initial-grid"]'),
             body: {
@@ -723,6 +727,75 @@
     
     async function handleClickMainEvent(item) {
     	console.log("handleClickMainEvent")
+		var initalGrid = new ax5.ui.grid();
+        initalGrid.setConfig({
+            target: $('[data-ax5grid="initial-grid"]'),
+            body: {
+                onClick: function () {
+                	if(this.column.key == 'matrBtn'){
+                		this.self.select(this.dindex);
+                        var item = this.item; // 선택된 행의 데이터
+                        handleClickMatBtn(this.item);
+                	}
+                },
+            },
+            columns: [
+                /* {key: "a", label: "field A"},
+                {key: "b", label: "field B"},
+                {key: "c", label: "numbers C"},
+                {key: "d", label: "field D"},
+                {key: "e", label: "field E"},
+                {key: "f", label: "field F"},
+                {key: "g", label: "field G"},
+                {key: "h", label: "field H"} */
+                {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                {key: "partNo", label: "Part", align: "center", width: 80},
+                {key: "revNo", label: "Rev", align: "center", width: 80},
+                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
+                {key: "matrMno", label: "형번", align: "center", width: 80},
+                {key: "matrSpec", label: "규격", align: "center", width: 80},
+                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
+                	if(this.item.matrSaftQty > 0){
+	                    return "자재정보수정";
+                	} else {
+	                    return "";
+                	}
+                }}, // 임시 생략
+            ]
+        });
+        
+        var formData = {
+                "coCd": item.coCd
+        }
+        postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+	        var listDetail = data.estList;
+	
+	        // 원래 배열에서의 인덱스를 추적하는 새로운 필드 추가
+	        for (let i = 0; i < listDetail.length; i++) {
+	        	listDetail[i].originalIndex = i;
+	        }
+	
+	        console.log(listDetail)
+	        initalGrid.setData({
+                list: listDetail,
+                page: {
+                    currentPage: 1,
+                    pageSize: data.paginationInfo.pageSize,
+                    totalElements: listDetail.length,
+                    totalPages: data.paginationInfo.totalPageCount
+                }
+            });
+    	});
+        /* var dataTest = [
+        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
+        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
+        initalGrid.setData(dataTest); */
     }
     async function handleClickMatBtn(item) {
     	if(item.matrSaftQty > 0){
