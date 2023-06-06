@@ -8,13 +8,18 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import com.dksys.biz.user.cr.cr03.util.MessageUtils;
 
-//@EnableWebMvc
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public MappingJackson2JsonView jsonView() {
         return new MappingJackson2JsonView();
+    }
+    
+    @Bean
+    public MessageUtils messageUtils() {
+        return new MessageUtils();
     }
     
 //    @Bean

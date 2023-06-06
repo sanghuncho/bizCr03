@@ -36,8 +36,7 @@ public class CamelMap extends ListOrderedMap <String, Object> {
     public Object put(String key, Object value) {
         if(value instanceof BigDecimal) {
             value = value.toString();
-        } 
-        
+        }        
 //        else if (value instanceof Integer) {
 //            value = value.toString();
 //        } else if (value instanceof BigInteger) {

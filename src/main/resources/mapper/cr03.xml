@@ -9,6 +9,26 @@
     </select>
    
     <select id="selectEstList" resultType="CamelMap">
-		SELECT * FROM ( SELECT T.*,row_number() OVER (ORDER BY file_trgt_key) AS RNUM FROM (SELECT * FROM TB_SM01M01) T ) Z  WHERE file_trgt_key BETWEEN 0 AND 10
+		SELECT * FROM ( SELECT T.*,row_number() OVER (ORDER BY file_trgt_key) 
+		AS RNUM FROM (SELECT * FROM TB_SM01M01) T ) Z
 	</select>
+	
+	<delete id="deleteEst">
+        DELETE
+        FROM TB_SM01M01
+        WHERE CO_CD = #{coCd}
+    </delete>
+    
+    <delete id="deleteEstDetail">
+        DELETE
+        FROM TB_SM01D01
+        WHERE CO_CD = #{coCd}
+    </delete>
+    
+    <delete id="deleteAllEstDetails">
+        DELETE
+        FROM TB_SM01D01
+        WHERE 1 = 1
+          AND CO_CD = #{coCd}
+    </delete>
 </mapper>

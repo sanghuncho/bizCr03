@@ -223,8 +223,7 @@
                     <div class="table_list_tit">
                     </div>
                     <div>
-						<div data-ax5grid="initial-grid" data-ax5grid-config="{showRowSelector: true,
-		                    multipleSelect: true,
+						<div data-ax5grid="initial-grid" data-ax5grid-config="{
 		                    lineNumberColumnWidth: 40,
 		                    rowSelectorColumnWidth: 27,}" style="height: 300px;width: 100%;"></div>
 		                <!-- <div data-ax5grid="est-grid" data-ax5grid-config="{}" style="height: 250px; width: 100%;"></div> -->
@@ -660,15 +659,15 @@
     //화면로드시
     $(document).ready(function () {
         //excelView.initView();
-        gridView.initView();
-        //gridView.initView().setData(0);
-        //$("#coCd_S").focus();
+        //gridView.initView();
+        gridView.initView().setData(0);
+        
+        $("#coCd_S").focus();
         mainDefaultLoad("영업관리", "구매 BOM 등록");
         setCommonSelect($("#main_area select[data-kind]"));
+        
         //$("#coCd_S").val(jwt.coCd);
         //setByCoCd($("#coCd_S").val());
-        
-		
     })
     
     async function handleDBlCLickEvent(item) {
@@ -754,6 +753,25 @@
         //$("#coCd_S").val(jwt.coCd);
         // 그리드 뷰 초기화
         gridView.initView()
+    }
+    
+    function deleteEst() {
+        var row = gridView.target.getList("selected")[0];
+        //alert(row.fileTrgtKey);
+        var formData = {
+            "coCd": row.coCd,
+            "fileTrgtKey": row.fileTrgtKey.toString(),
+        }
+        if (confirm("삭제하시겠습니까?")) {
+            deleteAjax("/user/cr/cr03/deleteEst", formData, null, function (data) {
+                if (data.resultCode) {
+                    alert(data.resultMessage);
+                    gridView.setData(0);
+                } else {
+                    alert("삭제할 수 없습니다.");
+                }
+            });
+        }
     }
     
     function loadEstDegrees() {

@@ -24,4 +24,11 @@ public class CR03SvcImpl implements CR03Svc {
         return cr03Mapper.selectEstList(param);
     }
 
+    @Override
+    public int deleteEst(Map<String, String> paramMap) {
+        int result = cr03Mapper.deleteEst(paramMap);
+        result += cr03Mapper.deleteAllEstDetails(paramMap);
+        return result;
+    }
+
 }
