@@ -233,15 +233,6 @@
             </ul>
         </div>
     </div>
-    <div class="contents_tit">
-        <div>
-           <div style="float:right">
-               <a class="btn btn-default btn-sm" onclick="insertMaterialEditModal('C')">
-                  	 자재정보수정</a>
-           </div>
-        </div>
-    </div>
-    
 </div>
 
 </body>
@@ -736,7 +727,7 @@
     }
     async function handleClickMatBtn(item) {
     	if(item.matrSaftQty > 0){
-    		alert("자재정보수정 클릭")
+    		openMatrEdtModal('C')
     	}
     }
     
@@ -747,6 +738,12 @@
     function insertProjectModal(type) {
         var paramObj = {"actionType": type};
         openModalPopUp("/static/html/user/cr/cr03/CR0302P01.html", 1400, 736, "", paramObj);
+        treeModule.initFileArrays();
+    }
+    
+    function openMatrEdtModal(type) {
+        var paramObj = {"actionType": type};
+        openModalPopUp("/static/html/user/cr/cr03/CR0302P02.html", 1400, 736, "", paramObj);
         treeModule.initFileArrays();
     }
     
