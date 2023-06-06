@@ -18,6 +18,60 @@
   display: flex;
 }
 </style>
+<!-- <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/dashboard.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/static/css/ax5/ax5grid.css"/>
+    <link rel="stylesheet" href="/static/css/ax5/ax5mask.css"/>
+    <link rel="stylesheet" href="/static/css/ax5/ax5modal.css"/>
+    <link rel="stylesheet" href="/static/css/ax5/ax5toast.css"/>
+    <link rel="stylesheet" href="/static/css/jstree/style.min.css"/>
+    <link rel="stylesheet" href="/static/css/gnb.css"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    	<link rel="stylesheet" href="/static/css/sub.css" />
+    <link rel="stylesheet" href="/static/css/common.css"/>
+
+    <link rel="stylesheet" href="/static/css/sub.css"/>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-calendar/master/dist/ax5calendar.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.css">
+    <link rel="stylesheet" href="/static/css/ax5/ax5menu.css">
+
+   <script src="/static/js/jquery-latest.min.js"></script>
+   <script src="/static/js/jquery.serializeObject.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+     <script src="/static/bootstrap/js/bootstrap-datepicker.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-datepicker.ko.min.js"></script>
+    <script src="/static/js/moment/moment-with-locales.js"></script>
+    <script src="/static/js/ax5/ax5core.min.js"></script>
+    <script src="/static/js/ax5/ax5calendar.min.js"></script> 
+    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-formatter/master/dist/ax5formatter.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.min.js"></script>
+    <script src="/static/js/ax5/ax5grid.min.js"></script>
+    <script src="/static/js/ax5/ax5mask.min.js"></script>
+    <script src="/static/js/ax5/ax5modal.min.js"></script>
+    <script src="/static/js/ax5/ax5toast.min.js"></script>
+    <script src="/static/js/jstree/jstree.min.js"></script>
+    <script src="/static/js/ax5/ax5menu.min.js"></script>
+    <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/static/js/global.js"></script>
+    <script src="/static/js/fileTree.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+   
+    <style>
+
+    </style>
+
+</head> -->
 <div class="popup_area of_a" style=" height: 100%;">
     <div id="first-focus" class="tit_contents">
         <h4 class="tit">구매BOM</h4>
@@ -181,7 +235,7 @@
 					            </div>
 					        </div>
 		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:300px">
-		                        <div data-ax5grid="second-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
+		                        <div data-ax5grid="top-left-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
 		                    </div>
 		                </div>
 		                <div class="columnSideBySide">
@@ -195,7 +249,7 @@
 					            </div>
 					        </div>
 		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:300px">
-		                        <div data-ax5grid="third-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
+		                        <div data-ax5grid="top-right-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
 		                    </div>
 		                </div>
 		            </div>
@@ -253,7 +307,7 @@
 					            </div>
 					        </div>
 		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:300px">
-		                        <div data-ax5grid="second-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
+		                        <div data-ax5grid="bottom-left-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
 		                    </div>
 		                </div>
 		                <div class="columnSideBySide">
@@ -266,7 +320,7 @@
 					            </div>
 					        </div>
 		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:300px">
-		                        <div data-ax5grid="third-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
+		                        <div data-ax5grid="bottom-right-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
 		                    </div>
 		                </div>
 		            </div>
@@ -738,12 +792,11 @@
     $(document).on("click", "#fileBtn", function () {
         $("#file").click();
     });
-
-
+    
     /* document.ready */
     $(document).ready(function () {
-        $("#coCd").val(jwt.coCd)
-
+    	//$("#coCd").val(jwt.coCd)
+		
         try {
             $("#coCd").focus();
             $("#coCd").trigger("click");
@@ -831,7 +884,7 @@
             var month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
             var day = currentDate.getDate();
 
-// 월과 일이 한 자리수라면 앞에 '0'을 추가합니다.
+			// 월과 일이 한 자리수라면 앞에 '0'을 추가합니다.
             if (month < 10) month = '0' + month;
             if (day < 10) day = '0' + day;
 
@@ -897,7 +950,8 @@
             }
         }).trigger('change');
     });
-
+	/* end (document).ready */
+	
     function fetchCurrencyData() {
         var paramObj = {"codeKind": "UNITDIV", "useYn": "Y"};
         var paramObj2 = {"codeKind": "ESTDIV", "useYn": "Y"};
@@ -938,8 +992,15 @@
             });
         });
 
-        return Promise.all([promise1, promise2]);
+        var topLeftTable = loadTopLeftTable()
+        var topRightTable = loadTopRightTable()
+        var bottomLeftTable = loadBottomLeftTable()
+        var bottomRightTable = loadBottomRightTable()
+    	
+        return Promise.all([promise1, promise2, topLeftTable, topRightTable, bottomLeftTable, bottomRightTable]);
     }
+   /*  end fetchCurrencyData */
+    
 
     let selectedRowKey;
     let previousSelectedRowKey;
@@ -1172,6 +1233,7 @@
         };
 
     })
+    /* end fetchCurrencyData */
     
     const wstgrid = new ax5.ui.grid();
     fetchCurrencyData().then(function ([options, options2]) {
@@ -1398,7 +1460,7 @@
             }, 100);  // 1초 간격으로 체크합니다.
         };
 
-    })
+    })// end fetchCurrencyData
     
     function countSubtotalRowsBeforeIndex(wstgrid, index) {
         let count = 0;
@@ -1470,7 +1532,8 @@
                 totalElements: data.length
             }
         });
-    });
+    }); // end addProductButton
+    
     $("#deleteProductButton").on("click", function () {
         if (selectedRowKey !== undefined) {
         	wstgrid.removeRow(selectedRowKey);
@@ -1498,7 +1561,7 @@
         } else {
             alert("삭제를 위해 선택된 행이 없습니다.");
         }
-    });
+    });// end deleteProductButton
 
     function addEstDtlDivWithPreset() {
 
@@ -1785,6 +1848,261 @@
             gridIn.self.repaint();
 
         });
+    }
+    
+    function loadTopLeftTable() {
+    	console.log("loadTopLeftTable")
+		var topLeftGrid = new ax5.ui.grid();
+    	topLeftGrid.setConfig({
+            target: $('[data-ax5grid="top-left-grid"]'),
+            columns: [
+                {key: "a", label: "field A"},
+                {key: "b", label: "field B"},
+                {key: "c", label: "numbers C"},
+                {key: "d", label: "field D"},
+                {key: "e", label: "field E"},
+                {key: "f", label: "field F"},
+                {key: "g", label: "field G"},
+                {key: "h", label: "field H"}
+                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                {key: "partNo", label: "Part", align: "center", width: 80},
+                {key: "revNo", label: "Rev", align: "center", width: 80},
+                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
+                {key: "matrMno", label: "형번", align: "center", width: 80},
+                {key: "matrSpec", label: "규격", align: "center", width: 80},
+                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
+                	if(this.item.matrSaftQty > 0){
+	                    return "자재정보수정";
+                	} else {
+	                    return "";
+                	}
+                }}, */
+            ]
+        });
+        
+        /* var formData = {
+                "coCd": item.coCd
+        }
+        postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+	        var listDetail = data.estList;
+	
+	        // 원래 배열에서의 인덱스를 추적하는 새로운 필드 추가
+	        for (let i = 0; i < listDetail.length; i++) {
+	        	listDetail[i].originalIndex = i;
+	        }
+	
+	        console.log(listDetail)
+	        initalGrid.setData({
+                list: listDetail,
+                page: {
+                    currentPage: 1,
+                    pageSize: data.paginationInfo.pageSize,
+                    totalElements: listDetail.length,
+                    totalPages: data.paginationInfo.totalPageCount
+                }
+            });
+    	}); */
+        var dataTest = [
+        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
+        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
+    	topLeftGrid.setData(dataTest);
+    }
+    
+    function loadTopRightTable() {
+		var topRightGrid = new ax5.ui.grid();
+		topRightGrid.setConfig({
+            target: $('[data-ax5grid="top-right-grid"]'),
+            columns: [
+                {key: "a", label: "field A"},
+                {key: "b", label: "field B"},
+                {key: "c", label: "numbers C"},
+                {key: "d", label: "field D"},
+                {key: "e", label: "field E"},
+                {key: "f", label: "field F"},
+                {key: "g", label: "field G"},
+                {key: "h", label: "field H"}
+                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                {key: "partNo", label: "Part", align: "center", width: 80},
+                {key: "revNo", label: "Rev", align: "center", width: 80},
+                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
+                {key: "matrMno", label: "형번", align: "center", width: 80},
+                {key: "matrSpec", label: "규격", align: "center", width: 80},
+                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
+                	if(this.item.matrSaftQty > 0){
+	                    return "자재정보수정";
+                	} else {
+	                    return "";
+                	}
+                }}, */
+            ]
+        });
+        
+        /* var formData = {
+                "coCd": item.coCd
+        }
+        postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+	        var listDetail = data.estList;
+	
+	        // 원래 배열에서의 인덱스를 추적하는 새로운 필드 추가
+	        for (let i = 0; i < listDetail.length; i++) {
+	        	listDetail[i].originalIndex = i;
+	        }
+	
+	        console.log(listDetail)
+	        initalGrid.setData({
+                list: listDetail,
+                page: {
+                    currentPage: 1,
+                    pageSize: data.paginationInfo.pageSize,
+                    totalElements: listDetail.length,
+                    totalPages: data.paginationInfo.totalPageCount
+                }
+            });
+    	}); */
+        var dataTest = [
+        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
+        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
+    	topRightGrid.setData(dataTest);
+    }
+    
+    function loadBottomLeftTable() {
+    	console.log("loadTopLeftTable")
+		var bottomLeftGrid = new ax5.ui.grid();
+    	bottomLeftGrid.setConfig({
+            target: $('[data-ax5grid="bottom-left-grid"]'),
+            columns: [
+                {key: "a", label: "field A"},
+                {key: "b", label: "field B"},
+                {key: "c", label: "numbers C"},
+                {key: "d", label: "field D"},
+                {key: "e", label: "field E"},
+                {key: "f", label: "field F"},
+                {key: "g", label: "field G"},
+                {key: "h", label: "field H"}
+                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                {key: "partNo", label: "Part", align: "center", width: 80},
+                {key: "revNo", label: "Rev", align: "center", width: 80},
+                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
+                {key: "matrMno", label: "형번", align: "center", width: 80},
+                {key: "matrSpec", label: "규격", align: "center", width: 80},
+                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
+                	if(this.item.matrSaftQty > 0){
+	                    return "자재정보수정";
+                	} else {
+	                    return "";
+                	}
+                }}, */
+            ]
+        });
+        
+        /* var formData = {
+                "coCd": item.coCd
+        }
+        postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+	        var listDetail = data.estList;
+	
+	        // 원래 배열에서의 인덱스를 추적하는 새로운 필드 추가
+	        for (let i = 0; i < listDetail.length; i++) {
+	        	listDetail[i].originalIndex = i;
+	        }
+	
+	        console.log(listDetail)
+	        initalGrid.setData({
+                list: listDetail,
+                page: {
+                    currentPage: 1,
+                    pageSize: data.paginationInfo.pageSize,
+                    totalElements: listDetail.length,
+                    totalPages: data.paginationInfo.totalPageCount
+                }
+            });
+    	}); */
+        var dataTest = [
+        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
+        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
+    	bottomLeftGrid.setData(dataTest);
+    }
+    
+    function loadBottomRightTable() {
+    	console.log("loadTopLeftTable")
+		var bottomRightGrid = new ax5.ui.grid();
+    	bottomRightGrid.setConfig({
+            target: $('[data-ax5grid="bottom-right-grid"]'),
+            columns: [
+                {key: "a", label: "field A"},
+                {key: "b", label: "field B"},
+                {key: "c", label: "numbers C"},
+                {key: "d", label: "field D"},
+                {key: "e", label: "field E"},
+                {key: "f", label: "field F"},
+                {key: "g", label: "field G"},
+                {key: "h", label: "field H"}
+                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                {key: "partNo", label: "Part", align: "center", width: 80},
+                {key: "revNo", label: "Rev", align: "center", width: 80},
+                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
+                {key: "matrMno", label: "형번", align: "center", width: 80},
+                {key: "matrSpec", label: "규격", align: "center", width: 80},
+                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
+                	if(this.item.matrSaftQty > 0){
+	                    return "자재정보수정";
+                	} else {
+	                    return "";
+                	}
+                }}, */
+            ]
+        });
+        
+        /* var formData = {
+                "coCd": item.coCd
+        }
+        postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+	        var listDetail = data.estList;
+	
+	        // 원래 배열에서의 인덱스를 추적하는 새로운 필드 추가
+	        for (let i = 0; i < listDetail.length; i++) {
+	        	listDetail[i].originalIndex = i;
+	        }
+	
+	        console.log(listDetail)
+	        initalGrid.setData({
+                list: listDetail,
+                page: {
+                    currentPage: 1,
+                    pageSize: data.paginationInfo.pageSize,
+                    totalElements: listDetail.length,
+                    totalPages: data.paginationInfo.totalPageCount
+                }
+            });
+    	}); */
+        var dataTest = [
+        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
+        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
+    	bottomRightGrid.setData(dataTest);
     }
 </script>
 </html>
