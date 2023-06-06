@@ -234,6 +234,7 @@
         </div>
     </div>
 </div>
+<div data-ax5grid="excel-grid" data-ax5grid-config="{}" style="display: none;"></div>
 
 </body>
 
@@ -658,11 +659,11 @@
     
     //화면로드시
     $(document).ready(function () {
-        //excelView.initView();
+        excelView.initView();
         //gridView.initView();
         gridView.initView().setData(0);
         
-        //$("#coCd_S").focus();
+        $("#coCd_S").focus();
         mainDefaultLoad("영업관리", "구매 BOM 등록");
         setCommonSelect($("#main_area select[data-kind]"));
         
@@ -866,5 +867,57 @@
          }
          console.log('Updated select element:', selectElem); // 업데이트된 selectElem 로깅
     }
+    
+    var excelView = {
+            initView: function () {
+                this.target = new ax5.ui.grid();
+                this.target.setConfig({
+                    target: $('[data-ax5grid="excel-grid"]'),
+                    columns: [
+                    	{key: "salesCd", label: "Sales Code", align: "center", width: 100,},
+                        {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
+                        {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
+                        {key: "partNo", label: "Part", align: "center", width: 80},
+                        {key: "revNo", label: "Rev", align: "center", width: 80},
+                        {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
+                        {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
+                        {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
+                        {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
+                        {key: "matrMno", label: "형번", align: "center", width: 80},
+                        {key: "matrSpec", label: "규격", align: "center", width: 80},
+                        {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
+                    ],
+
+                });
+                return this;
+            }
+    }
+    
+    /* function getTodayDate(){
+    	const date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let currentDate = `${year}${month}${day}`;
+        var todayDate = new Date().toISOString().slice(0, 10);
+        return todayDate
+    } */
+    
+    function excelDown() {
+        var targetObj = this.target;
+        var paramObj = {"pageNo": 1, "recordCnt": 99999};
+        postAjax("/user/cr/cr03/selectEstList", paramObj, null, function (data) {
+
+            excelView.target.setData({
+                list: data.estList,
+                page: {
+                    totalElements: data.paginationInfo.totalRecordCount
+                }
+            });
+            var todayDate = new Date().toISOString().slice(0, 10);
+            excelView.target.exportExcel("구매BOM내역_" + todayDate + ".xls");
+        });
+    }
+    
 </script>
 </html>
