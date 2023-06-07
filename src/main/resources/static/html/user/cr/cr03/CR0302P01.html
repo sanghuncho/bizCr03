@@ -294,8 +294,8 @@
 				            </div>
 				        </div>
 				    </div>
-				    <!-- 첨부파일 end
-				    구매, 자제정보 -->
+				    <!-- 첨부파일 end -->
+				    <!--  구매, 자제정보 -->
 				    <div class="rowSideBySide">
 	                    <div class="columnSideBySide">
 					        <div class="contents_tit">
@@ -306,8 +306,8 @@
 					                </div>
 					            </div>
 					        </div>
-		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:300px">
-		                        <div data-ax5grid="bottom-left-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
+		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:200px">
+		                        <div data-ax5grid="bottom-left-grid" data-ax5grid-config="{}" style="height:300px;"></div>
 		                    </div>
 		                </div>
 		                <div class="columnSideBySide">
@@ -319,21 +319,26 @@
 					                </div>
 					            </div>
 					        </div>
-		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:300px">
-		                        <div data-ax5grid="bottom-right-grid" data-ax5grid-config="{}" style="height: 300px;"></div>
+		                    <div class="contents" style="margin:0px;padding:0 5px 100px;height:80%;min-width:300px;">
+		                        <div data-ax5grid="bottom-right-grid" data-ax5grid-config="{}" style="height:300px;"></div>
 		                    </div>
 		                </div>
 		            </div>
+		            <!-- <div>
+				        <button id="actionBtn" authchk>등록</button>
+				        <button class="close_btn" style="background-color:white" onclick="modalStack.close();">닫기</button>
+				    </div> -->
 		            <!-- 구매, 자제정보 end -->
                 </div>
             </div>
         </div>
     </div>
     <br>
+   
     <!-- 하단 버튼 -->
     <div class="popup_bottom_btn">
         <button id="actionBtn" authchk>등록</button>
-        <button class="close_btn" onclick="  modalStack.close();">닫기</button>
+        <button class="close_btn" onclick="modalStack.close();">닫기</button>
     </div>
 </div>
 
@@ -1856,33 +1861,13 @@
     	topLeftGrid.setConfig({
             target: $('[data-ax5grid="top-left-grid"]'),
             columns: [
-                {key: "a", label: "field A"},
-                {key: "b", label: "field B"},
-                {key: "c", label: "numbers C"},
-                {key: "d", label: "field D"},
-                {key: "e", label: "field E"},
-                {key: "f", label: "field F"},
-                {key: "g", label: "field G"},
-                {key: "h", label: "field H"}
-                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
-                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
-                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
-                {key: "partNo", label: "Part", align: "center", width: 80},
-                {key: "revNo", label: "Rev", align: "center", width: 80},
-                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
-                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
-                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
-                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
-                {key: "matrMno", label: "형번", align: "center", width: 80},
-                {key: "matrSpec", label: "규격", align: "center", width: 80},
-                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
-                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
-                	if(this.item.matrSaftQty > 0){
-	                    return "자재정보수정";
-                	} else {
-	                    return "";
-                	}
-                }}, */
+                {key: "matrDrwNo", label: "대표도번"},//MATR_DRW_NO
+                {key: "matrPartNo", label: "PART"},
+                {key: "unitNo", label: "UNIT"},
+                {key: "revNo", label: "REV"},
+                {key: "matrCd", label: "품번"},
+                {key: "matrNm", label: "품명"},
+                {key: "matrSaftQty", label: "수량"},
             ]
         });
         
@@ -1908,10 +1893,10 @@
                 }
             });
     	}); */
-        var dataTest = [
-        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
-        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
-    	topLeftGrid.setData(dataTest);
+        var topLeftGridTest = [
+        	{matrDrwNo: "1", matrPartNo: "A01", unitNo:"C", revNo:"D", matrCd:"E", matrNm:"F", matrSaftQty:"1"},
+        	{matrDrwNo: "2", matrPartNo: "A01", unitNo:"D", revNo:"D", matrCd:"E", matrNm:"F", matrSaftQty:"2"}]
+    	topLeftGrid.setData(topLeftGridTest);
     }
     
     function loadTopRightTable() {
@@ -1919,33 +1904,15 @@
 		topRightGrid.setConfig({
             target: $('[data-ax5grid="top-right-grid"]'),
             columns: [
-                {key: "a", label: "field A"},
-                {key: "b", label: "field B"},
-                {key: "c", label: "numbers C"},
-                {key: "d", label: "field D"},
-                {key: "e", label: "field E"},
-                {key: "f", label: "field F"},
-                {key: "g", label: "field G"},
-                {key: "h", label: "field H"}
-                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
-                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
-                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
-                {key: "partNo", label: "Part", align: "center", width: 80},
-                {key: "revNo", label: "Rev", align: "center", width: 80},
-                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
-                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
-                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
-                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
-                {key: "matrMno", label: "형번", align: "center", width: 80},
-                {key: "matrSpec", label: "규격", align: "center", width: 80},
-                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
-                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
-                	if(this.item.matrSaftQty > 0){
-	                    return "자재정보수정";
-                	} else {
-	                    return "";
-                	}
-                }}, */
+                {key: "unitNo", label: "UNIT"},
+                {key: "revNo", label: "Rev"},
+                {key: "matrCd", label: "품번"},
+                {key: "matrNm", label: "품명"},
+                {key: "matrMat", label: "소재"},
+                {key: "matrMakrNm", label: "MAKER"},
+                {key: "matrMno", label: "형번"},
+                {key: "matrSpec", label: "규격"},
+                {key: "matrSaftQty", label: "수량"}
             ]
         });
         
@@ -1971,10 +1938,10 @@
                 }
             });
     	}); */
-        var dataTest = [
-        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
-        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
-    	topRightGrid.setData(dataTest);
+        var topRightGridTest = [
+        	{unitNo: "A", revNo: "A01", matrCd:"C", matrNm:"D", matrMat:"E", matrMakrNm:"F", matrMno:"G", matrSpec:"G", matrSaftQty:"G"},
+        	{unitNo: "A", revNo: "A01", matrCd:"D", matrNm:"D", matrMat:"E", matrMakrNm:"F", matrMno:"G", matrSpec:"G", matrSaftQty:"G"}]
+    	topRightGrid.setData(topRightGridTest);
     }
     
     function loadBottomLeftTable() {
@@ -1983,33 +1950,10 @@
     	bottomLeftGrid.setConfig({
             target: $('[data-ax5grid="bottom-left-grid"]'),
             columns: [
-                {key: "a", label: "field A"},
-                {key: "b", label: "field B"},
-                {key: "c", label: "numbers C"},
-                {key: "d", label: "field D"},
-                {key: "e", label: "field E"},
-                {key: "f", label: "field F"},
-                {key: "g", label: "field G"},
-                {key: "h", label: "field H"}
-                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
-                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
-                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
-                {key: "partNo", label: "Part", align: "center", width: 80},
-                {key: "revNo", label: "Rev", align: "center", width: 80},
-                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
-                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
-                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
-                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
-                {key: "matrMno", label: "형번", align: "center", width: 80},
-                {key: "matrSpec", label: "규격", align: "center", width: 80},
-                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
-                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
-                	if(this.item.matrSaftQty > 0){
-	                    return "자재정보수정";
-                	} else {
-	                    return "";
-                	}
-                }}, */
+                {key: "salesCd", label: "Sales Code",width: 80,},
+                {key: "unitNo", label: "UNIT",width: 80,},
+                {key: "partNo", label: "PART",width: 80,},
+                {key: "revNo", label: "Rev",width: 80,},
             ]
         });
         
@@ -2035,10 +1979,10 @@
                 }
             });
     	}); */
-        var dataTest = [
-        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
-        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
-    	bottomLeftGrid.setData(dataTest);
+        var bottomLeftGridTest = [
+        	{salesCd: "A", unitNo: "A01", partNo:"C", revNo:"D"},
+        	{salesCd: "A", unitNo: "A01", partNo:"D", revNo:"D"}]
+    	bottomLeftGrid.setData(bottomLeftGridTest);
     }
     
     function loadBottomRightTable() {
@@ -2047,33 +1991,19 @@
     	bottomRightGrid.setConfig({
             target: $('[data-ax5grid="bottom-right-grid"]'),
             columns: [
-                {key: "a", label: "field A"},
-                {key: "b", label: "field B"},
-                {key: "c", label: "numbers C"},
-                {key: "d", label: "field D"},
-                {key: "e", label: "field E"},
-                {key: "f", label: "field F"},
-                {key: "g", label: "field G"},
-                {key: "h", label: "field H"}
-                /* {key: "salesCd", label: "Sales Code", align: "center", width: 100,},
-                {key: "salesCd", label: "ASSY", align: "center", width: 100},//?
-                {key: "unitNo", label: "UNIT", align: "center", width: 80},//?
-                {key: "partNo", label: "Part", align: "center", width: 80},
-                {key: "revNo", label: "Rev", align: "center", width: 80},
-                {key: "revNo", label: "품번", align: "center", width: 80},//?matrCd 자재코드
-                {key: "revNo", label: "품명", align: "center", width: 80},//?matrNm 자재명
-                {key: "matrMat", label: "소재", align: "center", width: 80},//MATR_MAT 소재
-                {key: "matrMakrNm", label: "MAKER", align: "center", width: 80},//MATR_MAKR_NM 제조사
-                {key: "matrMno", label: "형번", align: "center", width: 80},
-                {key: "matrSpec", label: "규격", align: "center", width: 80},
-                {key: "matrSaftQty", label: "수량", align: "center", width: 80},//MATR_SAFT_QTY 임시 안전재고 
-                {key: "matrBtn", label: "기능버튼", align: "center", width: 80, formatter: function(){
-                	if(this.item.matrSaftQty > 0){
-	                    return "자재정보수정";
-                	} else {
-	                    return "";
-                	}
-                }}, */
+                {key: "upperCd", label: "상위"},
+                {key: "partNo", label: "PART"},
+                {key: "unitNo", label: "UNIT"},
+                {key: "revNo", label: "Rev"},
+                {key: "matrCd", label: "품번"},
+                {key: "matrNm", label: "품명"},
+                {key: "matrMat", label: "소재"},
+                {key: "matrMakrNm", label: "MAKER"},
+                {key: "matrMno", label: "형번"},
+                {key: "matrSpec", label: "규격"},
+                {key: "matrSaftQty", label: "수량"},
+                {key: "matrBtn", label: "기능버튼"},
+                
             ]
         });
         
@@ -2099,10 +2029,10 @@
                 }
             });
     	}); */
-        var dataTest = [
-        	{salesCd: "A", salesCd: "A01", unitNo:"C", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
-        	{salesCd: "A", salesCd: "A01", unitNo:"D", partNo:"D", revNo:"E", revNo:"F", revNo:"G", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
-    	bottomRightGrid.setData(dataTest);
+        var bottomRightGridTest = [
+        	{upperCd: "A", partNo: "A01", unitNo:"C", revNo:"D", matrCd:"E", matrNm:"F", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:1, matrBtn:""},
+        	{upperCd: "A", partNo: "A01", unitNo:"D", revNo:"D", matrCd:"E", matrNm:"F", matrMat:"G", matrMakrNm:"G", matrMno:"G", matrSpec:"G", matrSaftQty:0, matrBtn:""}]
+    	bottomRightGrid.setData(bottomRightGridTest);
     }
 </script>
 </html>
