@@ -15,6 +15,12 @@
 					  <if test="coCd != null and !coCd.equals('')">
 		                AND co_cd = #{coCd}
 		              </if>
+		              <if test="salesCd != null and !salesCd.equals('')">
+		                AND sales_cd = #{salesCd}
+		              </if>
+		              <if test="fileTrgtKey != null and !fileTrgtKey.equals('')">
+		                AND file_trgt_key = #{fileTrgtKey}
+		              </if>
 					  </where>
 					  ) T ) Z
 	</select>

@@ -319,6 +319,7 @@
                     "prdtId": $("#prdtId_S").val(),//제품구분
                     "itemList": $("#itemList_S").val(),//아이템구분
                     "eqpNm": $("#eqpNm_S").val(),//설비명설비명
+                    "pageNo": _pageNo + 1,
 
                 }
                 postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
@@ -801,7 +802,7 @@
     }
     async function handleClickMatBtn(item) {
     	if(item.matrSaftQty > 0){
-    		openMatrEdtModal('C')
+    		openMatrEdtModal('C', item)
     	}
     }
     
@@ -815,8 +816,12 @@
         treeModule.initFileArrays();
     }
     
-    function openMatrEdtModal(type) {
-        var paramObj = {"actionType": type};
+    function openMatrEdtModal(type,item) {
+        var paramObj = {
+        		"actionType": type,
+        		"coCd": item.coCd,
+        		"salesCd": item.salesCd,
+        		};
         openModalPopUp("/static/html/user/cr/cr03/CR0302P02.html", 1400, 736, "", paramObj);
         treeModule.initFileArrays();
     }

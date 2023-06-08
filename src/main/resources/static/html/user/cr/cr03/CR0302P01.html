@@ -413,6 +413,16 @@
 
 
     }
+    
+    function opendSalesCdSearch(inputValue) {
+    	openSecondModalPopUp("/static/html/cmn/modal/salesCdSearch.html", 600, 420, "Sales Code 검색", {searchValue: inputValue}, function (grid) {
+            var row = grid.target.getList("selected")[0];
+            console.log(row)
+            /* $('#ordrsClntCd_S').val(row.clntCd);
+            $('#ordrsClntNm_S').val(row.clntNm);
+            gridView.setData(0); */
+        });
+    }
 
     // 거래처 검색 함수
     function openSecondClntSearch(id) {

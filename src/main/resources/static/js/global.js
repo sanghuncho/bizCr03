@@ -82,7 +82,7 @@ ModalStack.prototype.close = function(){
 	this.pop().target.close();
 }
 var modalStack = new ModalStack();
-
+var modalStackSecond = new ModalStack();
 var ubiprefix = "";
 if(true){
 	switch (jwt.serverType){
@@ -182,6 +182,42 @@ var openModal = function(url, width, height, title, paramObj, callback) {
       	});
     });
 };
+
+function openSecondModalPopUp(url, width, height, title, paramObj, callback){
+	var secondModal = new ax5.ui.modal();
+	
+	secondModal.open({
+		header: {
+			title: title,
+			btns: {
+	        	close: {
+	                label: '<i class="fa fa-times-circle" aria-hidden="true"></i>',
+	                onClick: function () {
+	                	modalStackSecond.close();
+	                }
+	            }
+	        }
+	    },
+        width: width,
+        height: height,
+        closeToEsc: false,
+        onStateChanged: function () {
+        	if (this.state === "open") {
+        		var modalObj = {
+                	"target": this.self,
+                	"paramObj": paramObj,
+                	"callback": callback
+                }
+        		modalStackSecond.push(modalObj);
+        	}
+        }
+    }, function () {
+    	var targetEl = this.$["body-frame"];
+    	$.get(url, function(data) {    	        
+    		targetEl.append(data);
+      	});
+    });
+}
 
 var openSecondModal = function(url, width, height, title, paramObj, callback) {
 	secondModal.open({

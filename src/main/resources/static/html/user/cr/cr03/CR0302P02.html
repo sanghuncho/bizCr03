@@ -21,13 +21,13 @@
                         <th class="hit" title="">품번</th>
                         <td>
 	                        <div class="search_form">
-	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                            <input type="text" id="matrCd_S" name="matrCd_S" class="modal-clntPjt_S">
 	                        </div>
 	                    </td>
                         <th class="hit">품명</th>
 	                    <td>
 	                        <div class="search_form">
-	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                            <input type="text" id="matrNm_S" name="matrNm_S" class="modal-clntPjt_S">
 	                        </div>
 	                    </td>
                     </tr>
@@ -172,7 +172,7 @@
                         <th class="" title="">안전재고</th>
                         <td>
                             <div class="search_form">
-	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                            <input type="text" id="matrSaftQty_S" name="matrSaftQty_S" class="modal-clntPjt_S">
 	                        </div>
                         </td>
                         <th class="" title="">재고관리여부</th>
@@ -786,6 +786,7 @@
 
     /* document.ready */
     $(document).ready(function () {
+    	console.log("자제정보 모달")
         $("#coCd").val(jwt.coCd)
 
         try {
@@ -943,280 +944,43 @@
     });
 
     function fetchCurrencyData() {
-        var paramObj = {"codeKind": "UNITDIV", "useYn": "Y"};
-        var paramObj2 = {"codeKind": "ESTDIV", "useYn": "Y"};
-
+    	
+    	console.log("자재정보 모달 fetch currency")
+    	var paramModal = modalStack.last().paramObj;
+    	console.log(paramModal)
+    	
+        var paramObjData = {
+    		"coCd": paramModal.coCd, 
+    		"salesCd": paramModal.salesCd
+    	};
+    	
         var promise1 = new Promise(function (resolve, reject) {
-            postAjax("/admin/cm/cm05/selectCodeList", paramObj, null, function (data) {
-                if (data && data.codeList) {
-                    var codeList = data.codeList;
-                    var options = codeList.map(function (code) {
-                        return {
-                            value: code.codeNm,
-                            text: code.codeNm
-                        };
-                    });
-                    resolve(options);
+        postAjax("/user/cr/cr03/selectEstList", paramObjData, null, function (data) {
+            	if (data) {
+            		console.log(data);
+                    resolve(data);
                 } else {
-                    console.error("codeList is undefined. Check the AJAX response:", data);
+                    console.error("data is undefined. Check the AJAX response:", data);
                     reject(data);
                 }
             });
         });
 
-        var promise2 = new Promise(function (resolve, reject) {
-            postAjax("/admin/cm/cm05/selectCodeList", paramObj2, null, function (data) {
-                if (data && data.codeList) {
-                    var codeList = data.codeList;
-                    var options2 = codeList.map(function (code) {
-                        return {
-                            value: code.codeNm,
-                            text: code.codeNm
-                        };
-                    });
-                    resolve(options2);
-                } else {
-                    console.error("codeList is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
-
-        return Promise.all([promise1, promise2]);
+        return Promise.all([promise1]);
     }
 
+    fetchCurrencyData().then(function ([promise1]) {
+    	var listDetail = promise1.estList;
+    	console.log(listDetail[0]);
+    	console.log(listDetail[0].matrSaftQty);
+    	$("#matrSaftQty_S").val(listDetail[0].matrSaftQty)
+    })
+    
     let selectedRowKey;
     let previousSelectedRowKey;
     let selectedPrdtCd;
     let selectedPrdtNm;
 	const thirdgrid = new ax5.ui.grid();
-    fetchCurrencyData().then(function ([options, options2]) {
-    	thirdgrid.setConfig({
-            target: $('[data-ax5grid="third-grid"]'),
-            columns: [
-                {
-                    key: "estSeq", label: "번호", width: 40, align: "center", formatter: function () {
-                        return this.item.__index + 1;
-                    },
-                },
-
-                {
-                    key: "estDtlDiv", label: "UNIT", width: 80, align: "center", editor: {
-                        type: "select",
-                        config: {
-                            columnKeys: {
-                                optionValue: 'value',
-                                optionText: 'text'
-                            },
-                            options: options2,
-
-
-                        }
-                    }
-                },
-                {
-                    key: "estComm", label: "Rev", align: "center", width: 80, editor: {
-                        type: "text"
-                    }
-                },
-                {key: "estSpec", label: "품번", align: "center", width: 80, editor: {type: "text"}},
-                {
-                    key: "estUnit", label: "품명", align: "center", width: 80, editor: {
-                        type: "select",
-                        config: {
-                            columnKeys: {
-                                optionValue: 'value',
-                                optionText: 'text'
-                            },
-                            options: options // 서버에서 가져온 데이터를 사용
-                        },
-                        event: {
-                            'blur': function () {
-                                // logic to select the next input field and focus it
-                            },
-                            'keydown': function (e) {
-                                if (e.keyCode == 9) { // tab key
-                                    // logic to select the next input field and focus it
-                                }
-                            }
-                        }
-                    }
-                },
-                {key: "estQty", label: "소재", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-                {key: "estUpr", label: "MAKER", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-                {
-                    key: "estAmt", label: "형번", width: 100, align: "right", formatter: function () {
-                        color = '#0000FF';
-                        const sumEst = this.item.estQty * this.item.estUpr;
-                        return '<div style="color: ' + color + '">' + sumEst.toLocaleString('en-US') + '</div>';
-                    }
-                },
-                {key: "estUpr", label: "규격", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-                {key: "estUpr", label: "수량", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-            ],
-
-            footSum: [
-                [
-                    {label: "총합계", align: "center", colspan: 7},
-                    {key: "estAmtAll", collector: "sum", formatter: "money", align: "right"},
-                ]
-            ],
-            body: {
-                grouping: {
-                    by: ["estDtlDiv"],
-                    columns: [
-                        {label: "소계", colspan: 7, align: "center"},
-                        {
-                            key: "estAmtMid",
-                            collector: function () {
-                                let sum = 0;
-                                this.list.forEach(function (n) {
-                                    if (!n.__grouping) sum += n.estQty * n.estUpr;
-                                });
-                                return sum;
-                                //중간소계
-                            },
-                            formatter: "money",
-                            align: "right",
-                        },
-                    ],
-
-                },
-                onClick: function () {
-                    this.self.clearSelect();
-                    this.self.select(this.dindex);
-                    const subtotalRowsBeforeIndexEs = countSubtotalRowsBeforeIndexEst(this, this.dindex);
-                    const realIndex = this.dindex - subtotalRowsBeforeIndexEs;
-                    selectedRowKey = realIndex;
-                    if (this.column.key == 'estComm') {
-                        var _this = this;
-
-                        // 선택된 행의 "estDtlDiv"값을 가져옵니다.
-                        let estDtlDivValue = thirdgrid.list[selectedRowKey].estDtlDiv;
-
-                        // 만약 "estDtlDiv"값이 "제작품"이라면 openPrdtSearch 함수를 호출합니다.
-
-                    }
-
-                }
-            },
-            contextMenu: {
-                iconWidth: 20,
-                acceleratorWidth: 100,
-                itemClickAndClose: false,
-                icons: {
-                    'arrow': '<i class="fa fa-caret-right"></i>'
-                },
-                items: [
-                    {type: 1, label: "붙여넣기"},
-                    {divide: true},
-                    {
-                        label: "작업선택",
-                        items: [
-                            {type: 1, label: "줄추가"},
-                            {type: 1, label: "내용 삭제"},
-                            {type: 2, label: "줄삭제"},
-                        ]
-                    },
-                ],
-                popupFilter: function (item, param) {
-                    //console.log(item, param);
-                    if (param.element) {
-                        return true;
-                    } else {
-                        return item.type == 1;
-                    }
-                },
-                onClick: function (item, param) {
-                    console.log(item, param);
-                    thisGridRow = param.dindex;
-                    thisGridCol = param.colIndex;
-
-                    if (item.label == "붙여넣기") {
-                        gridPaste(thisGridRow, thisGridCol);
-                    } else if (item.label == "줄추가") {
-                        console.log('추가 인덱스 :', param.dindex);
-                        //.addRow(추가할 내용, 삽인할위치(생략시 마지막),갯수)
-                        thirdgrid.addRow($.extend({}, thirdgrid.list[param.dindex], {__index: undefined}), param.dindex + 1,);
-                        thirdgrid.setValue(param.dindex, 'updcheck', 1);
-
-                    } else if (item.label == "내용 삭제") {
-                        console.log('내용삭제 인덱스 :', param.dindex);
-
-                        grid.config.columns.forEach((column) => {
-                        	thirdgrid.setValue(param.dindex, column.key, '');
-                        	thirdgrid.setValue(param.dindex, 'updcheck', 1);
-                            console.log('내용삭제 :', param.dindex, column.key);
-                        });
-
-                    } else if (item.label == "줄삭제") {
-                        console.log('삭제 인덱스 :', param.dindex);
-                        const subtotalRowsBeforeIndexEst = countSubtotalRowsBeforeIndexEst(thirdgrid, param.dindex);
-                        const realIndexEst = param.dindex - subtotalRowsBeforeIndexEst;
-                        thirdgrid.removeRow(realIndexEst);
-                    }
-
-
-                    thirdgrid.contextMenu.close();
-                    //또는 return true;
-
-                }
-            }
-
-        });
-    	thirdgrid.setColumnSort({
-            "estSeq": {orderBy: "asc", seq: 0},
-        });
-        let isUpdating = false;  // isUpdating 플래그 선언
-        thirdgrid.onDataChanged = function () {
-
-            if (this.item.estDtlDiv == undefined || isUpdating) {
-                return;
-            } else {
-                isUpdating = true;  // 업데이트 시작을 표시
-
-                const data = thirdgrid.getList();
-                data.forEach((item, index) => {
-                    item.estAmtAll = item.estQty * item.estUpr;  // 합계 계산 및 설정
-                });
-                thirdgrid.setData({
-                    list: data,
-                    page: {
-                        totalElements: data.length
-                    }
-                });
-                isUpdating = false;  // 업데이트 종료를 표시
-            }
-
-
-        };
-        let checkDataInterval = null;
-
-        thirdgrid.onLoad = function () {
-            checkDataInterval = setInterval(() => {
-                const dataEst = thirdgrid.getList();
-
-                // 데이터가 로드되었는지 확인합니다.
-                if (dataEst.length > 0) {
-                    clearInterval(checkDataInterval);  // 데이터가 로드되었다면 체크를 중단합니다.
-
-                    dataEst.forEach((item, index) => {
-                        item.estAmtAll = item.estQty * item.estUpr;  // 합계 계산 및 설정
-                    });
-
-
-                    thirdgrid.setData({
-                        list: dataEst,
-                        page: {
-                            totalElements: dataEst.length
-                        }
-                    });
-                }
-            }, 100);  // 1초 간격으로 체크합니다.
-        };
-
-    })
-    
     const wstgrid = new ax5.ui.grid();
     fetchCurrencyData().then(function ([options, options2]) {
     	wstgrid.setConfig({
