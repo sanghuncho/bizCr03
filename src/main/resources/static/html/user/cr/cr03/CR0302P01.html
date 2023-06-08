@@ -88,9 +88,10 @@
                     <tr>
                         <th class="hit">회사</th>
 	                    <td>
-	                        <select id="coCd_S" style="width:100%;" data-kind="CO" onchange="gridView.setData(0);"
+	                        <select id="coCd_S_Org" style="width:100%;" data-kind="CO" onchange="updateTopLeftTableData();"
 	                                required="required">
 	                            <option value="">전체</option>
+	                            <option value="10">건양ITT</option>
 	                        </select>
 	                    </td>
                         <th class="hit">Sales Code</th>
@@ -108,6 +109,7 @@
 	                        <select id="coCd_S" style="width:100%;" data-kind="CO" onchange="gridView.setData(0);"
 	                                required="required">
 	                            <option value="">전체</option>
+	                            <option value="10">건양ITT</option>
 	                        </select>
 	                    </td>
                         <th class="hit">Sales Code</th>
@@ -997,7 +999,7 @@
             });
         }); */
         
-        var paramObjTopLeft = {"coCd": ""};
+        var paramObjTopLeft = {"coCd": $('#coCd_S_Org').val()};
         var promiseTopLeft = new Promise(function (resolve, reject) {
             postAjax("/user/cr/cr03/selectEstList", paramObjTopLeft, null, function (data) {
                 if (data) {
@@ -1050,7 +1052,7 @@
     /*  end fetchCurrencyData */
     
     fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-		var topLeftGrid = new ax5.ui.grid();
+		/* var topLeftGrid = new ax5.ui.grid();
     	topLeftGrid.setConfig({
             target: $('[data-ax5grid="top-left-grid"]'),
             columns: [
@@ -1071,8 +1073,47 @@
                 totalElements: promiseTopLeft.estList.length,
                 totalPages: promiseTopLeft.paginationInfo.totalPageCount
             }
-        });
+        }); */
+    	setTopLeftTableData(promiseTopLeft)
     });
+    
+    function setTopLeftTableData(data){
+    	var topLeftGrid = new ax5.ui.grid();
+    	topLeftGrid.setConfig({
+            target: $('[data-ax5grid="top-left-grid"]'),
+            columns: [
+            	{key: "matrDrwNo", label: "대표도번"},
+                {key: "matrPartNo", label: "PART"},
+                {key: "unitNo", label: "UNIT"},
+                {key: "revNo", label: "REV"},
+                {key: "matrCd", label: "품번"},
+                {key: "matrNm", label: "품명"},
+                {key: "matrSaftQty", label: "수량"},
+            ]
+        });
+    	topLeftGrid.setData({
+            list: data.estList,
+            page: {
+                currentPage: data.paginationInfo.currentPageNo,
+                pageSize: data.paginationInfo.pageSize,
+                totalElements: data.estList.length,
+                totalPages: data.paginationInfo.totalPageCount
+            }
+        });
+    }
+        
+    function updateTopLeftTableData(){
+    	var formData = {
+                "coCd": $('#coCd_S_Org').val()
+        }
+    	console.log("updateTopLeftTableData")
+    	console.log(formData)
+    	postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+    		setTopLeftTableData(data);
+    	});
+    }
+    
+    
     
     fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
 		var topRightGrid = new ax5.ui.grid();
