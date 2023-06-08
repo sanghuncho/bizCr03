@@ -10,7 +10,13 @@
    
     <select id="selectEstList" resultType="CamelMap">
 		SELECT * FROM ( SELECT T.*,row_number() OVER (ORDER BY file_trgt_key) 
-		AS RNUM FROM (SELECT * FROM TB_SM01M01) T ) Z
+		AS RNUM FROM (SELECT * FROM TB_SM01M01 
+					  <where> 1 = 1 
+					  <if test="coCd != null and !coCd.equals('')">
+		                AND co_cd = #{coCd}
+		              </if>
+					  </where>
+					  ) T ) Z
 	</select>
 	
 	<delete id="deleteEst">
