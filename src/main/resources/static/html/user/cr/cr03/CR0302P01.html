@@ -18,67 +18,18 @@
   display: flex;
 }
 </style>
-<!-- <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/static/bootstrap/css/dashboard.css">
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/static/fontawesome/css/all.css">
-    <link rel="stylesheet" href="/static/css/ax5/ax5grid.css"/>
-    <link rel="stylesheet" href="/static/css/ax5/ax5mask.css"/>
-    <link rel="stylesheet" href="/static/css/ax5/ax5modal.css"/>
-    <link rel="stylesheet" href="/static/css/ax5/ax5toast.css"/>
-    <link rel="stylesheet" href="/static/css/jstree/style.min.css"/>
-    <link rel="stylesheet" href="/static/css/gnb.css"/>
-    <link rel="stylesheet" href="/static/css/main.css"/>
-    	<link rel="stylesheet" href="/static/css/sub.css" />
-    <link rel="stylesheet" href="/static/css/common.css"/>
-
-    <link rel="stylesheet" href="/static/css/sub.css"/>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-calendar/master/dist/ax5calendar.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.css">
-    <link rel="stylesheet" href="/static/css/ax5/ax5menu.css">
-
-   <script src="/static/js/jquery-latest.min.js"></script>
-   <script src="/static/js/jquery.serializeObject.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-     <script src="/static/bootstrap/js/bootstrap-datepicker.min.js"></script>
-    <script src="/static/bootstrap/js/bootstrap-datepicker.ko.min.js"></script>
-    <script src="/static/js/moment/moment-with-locales.js"></script>
-    <script src="/static/js/ax5/ax5core.min.js"></script>
-    <script src="/static/js/ax5/ax5calendar.min.js"></script> 
-    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-formatter/master/dist/ax5formatter.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.min.js"></script>
-    <script src="/static/js/ax5/ax5grid.min.js"></script>
-    <script src="/static/js/ax5/ax5mask.min.js"></script>
-    <script src="/static/js/ax5/ax5modal.min.js"></script>
-    <script src="/static/js/ax5/ax5toast.min.js"></script>
-    <script src="/static/js/jstree/jstree.min.js"></script>
-    <script src="/static/js/ax5/ax5menu.min.js"></script>
-    <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/static/js/global.js"></script>
-    <script src="/static/js/fileTree.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
-   
-    <style>
-
-    </style>
-
-</head> -->
 <div class="popup_area of_a" style=" height: 100%;">
     <div id="first-focus" class="tit_contents">
         <h4 class="tit">구매BOM</h4>
     </div>
+    <div class="add_btn_small pdl10" style="margin-right:8px;">
+        <button id="actionBtn" authchk>복사</button>
+        <button id="actionBtn">생성</button>
+    </div>
     <div class="toggle-div" style="padding-left: 0;">
+    
         <div class="popup_table">
-
+        
             <form id="popForm">
                 <input type="hidden" id="pgmId" name="pgmId" value="CR0101M01">
                 <table>
@@ -224,8 +175,8 @@
 					        <div class="contents_tit">
 					            <div>
 					                <div class="add_btn_small pdl10" style="margin-right:8px;">
-					                    <a onclick="insertProjectModal('C')" style="height: 30px; line-height: 28px;" authchk>+</a>
-					                    <a onclick="deleteEst()" style="height: 30px; line-height: 28px;" authchk>-</a>
+					                    <a onclick="addRow()" style="height: 30px; line-height: 28px;" authchk>+</a>
+					                    <a onclick="deleteRow()" style="height: 30px; line-height: 28px;" authchk>-</a>
 					                </div>
 					            </div>
 					        </div>
@@ -248,78 +199,6 @@
 		                    </div>
 		                </div>
 		            </div>
-		             <!-- 첨부파일 -->
-		            <!-- <div class="toggle-div" style="padding-left: 0;margin-bottom:40px;">
-				        <div class="row" style="margin-top: 15px;margin-right:0px;margin-left:0px;">
-				            <div class="col-xs-2" style="padding-right: 5px;">
-				                <div class="contents"
-				                     style="margin: 0; padding: 0;width: 100%; min-width: 200px;height:380px;border-radius: 0">
-				
-				                    <div id="treeview" style="padding: 5px">
-				                        <div style="text-align: center;" class="location">
-				                            <span class="page_tit"> 파일트리</span>
-				                        </div>
-				                        <div id="deptTree"></div>
-				                    </div>
-				                </div>
-				            </div>
-				
-				            <div class="col-xs-10" style="padding-left: 0;">
-				                <div class="contents"
-				                     style="margin: 0; padding: 0;   width: 100%; min-width: 200px;height:380px;border-radius:0;text-align:center">
-				                    <h3 class="location">
-				                        <a class="file_tag" id="file_tag"
-				                           style="font-weight: bold; color: blue; padding-left: 20px; padding-right: 10px;"></a>
-				                        <span class="page_tit" id="file_tit" style="text-align: right;"> 문서현황</span>
-				                    </h3>
-				
-				                    <button disabled type="button" id="button_file" class=""
-				                            style="  background-color: gray;height: 25px; line-height: 15px;" onclick="file.click();"
-				                            authchk>
-				                        	첨부파일
-				                    </button>
-				                              <button  type="button" id="zip_down" class=""
-				                                       style="display:none;height: 25px; line-height: 15px;"
-				                                       authchk>
-				                                   파일 전체 다운로드
-				                               </button>
-				                    <div class="ax5_grid" data-ax5grid="file-grid-popup" data-ax5grid-config="{}"
-				                         style="height: 300px; width: 95%;margin: auto;"></div>
-				                </div>
-				            </div>
-				        </div>
-				    </div> -->
-				    <!-- 첨부파일 end -->
-				    <!--  구매, 자제정보 -->
-				    <!-- <div class="rowSideBySide">
-	                    <div class="columnSideBySide">
-					        <div class="contents_tit">
-					            <div>
-					                <div class="add_btn_small pdl10" style="margin-right:8px;">
-					                    <a onclick="insertProjectModal('C')" style="height: 30px; line-height: 28px;" authchk>+</a>
-					                    <a onclick="deleteEst()" style="height: 30px; line-height: 28px;" authchk>-</a>
-					                </div>
-					            </div>
-					        </div>
-		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:200px">
-		                        <div data-ax5grid="bottom-left-grid" data-ax5grid-config="{}" style="height:300px;"></div>
-		                    </div>
-		                </div>
-		                <div class="columnSideBySide">
-					        <div class="contents_tit">
-					            <div>
-					                <div class="add_btn_small pdl10" style="margin-right:8px;">
-					                    <a onclick="insertProjectModal('C')" style="height: 30px; line-height: 28px;" authchk>+</a>
-					                    <a onclick="deleteEst()" style="height: 30px; line-height: 28px;" authchk>-</a>
-					                </div>
-					            </div>
-					        </div>
-		                    <div class="contents" style="margin:0px;padding:0 5px 100px;height:80%;min-width:300px;">
-		                        <div data-ax5grid="bottom-right-grid" data-ax5grid-config="{}" style="height:300px;"></div>
-		                    </div>
-		                </div>
-		            </div> -->
-		            <!-- 구매, 자제정보 end -->
                 </div>
             </div>
         </div>
@@ -335,6 +214,52 @@
 
 <script type="text/javascript">
 
+	function addRow(){
+		var newRowData = {
+			matrDrwNo: "",
+			matrPartNo: "",
+			unitNo: "",
+			revNo: "",
+			matrCd: "",
+			matrNm: "",
+			matrSaftQty: "",
+        };
+		topLeftGrid.addRow({}, topLeftGrid.length);
+	}
+	
+	function deleteRow(){
+		topLeftGrid.removeRow();
+	}
+	
+	function updateTopLeftTable() {
+		var rowList = shipGridView.target.getList("selected");
+		if(rowList.length == 0) {
+			alert("접수 건을 선택해주세요");
+			return;
+		}		
+		var detailArr = [];
+		
+		$.each(rowList, function(idx, elem){
+			var detailObj = {};
+			detailObj["shipSeq"] = elem.shipSeq;
+			detailObj["recptYn"] = "Y";
+			detailObj["pgmId"] = "AR0101M01";
+			detailObj["userId"] = jwt.userId;
+			detailArr.push(detailObj);
+		});
+		
+		var formData = {
+			"detailArr" : detailArr
+		}
+		
+		putAjax("/user/ar/ar01/updateRecptYn", formData, null, function(data){
+			if(data.resultCode == 200){
+				alert(data.resultMessage);
+				shipGridView.setData(0);
+			}
+		});
+	}
+	
     /* 견적서함수 */
     //견적 번호 조회 함수
     function getMaxEstNumber() {
@@ -508,7 +433,7 @@
             countTot();
         });
     }
-
+    
     // 현장 검색 함수
     function openSecondSiteSearch() {
         var paramObj = {
@@ -1076,18 +1001,18 @@
     	setTopLeftTableData(promiseTopLeft)
     });
     
+    var topLeftGrid = new ax5.ui.grid();
     function setTopLeftTableData(data){
-    	var topLeftGrid = new ax5.ui.grid();
     	topLeftGrid.setConfig({
             target: $('[data-ax5grid="top-left-grid"]'),
             columns: [
-            	{key: "matrDrwNo", label: "대표도번"},
-                {key: "matrPartNo", label: "PART"},
-                {key: "unitNo", label: "UNIT"},
-                {key: "revNo", label: "REV"},
-                {key: "matrCd", label: "품번"},
-                {key: "matrNm", label: "품명"},
-                {key: "matrSaftQty", label: "수량"},
+            	{key: "matrDrwNo", label: "대표도번", editor: {type: "text"}},
+                {key: "matrPartNo", label: "PART", editor: {type: "text"}},
+                {key: "unitNo", label: "UNIT", editor: {type: "text"}},
+                {key: "revNo", label: "REV", editor: {type: "text"}},
+                {key: "matrCd", label: "품번", editor: {type: "text"}},
+                {key: "matrNm", label: "품명", editor: {type: "text"}},
+                {key: "matrSaftQty", label: "수량", editor: {type: "number"}},
             ]
         });
     	topLeftGrid.setData({
@@ -1111,8 +1036,6 @@
     		setTopLeftTableData(data);
     	});
     }
-    
-    
     
     fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
 		var topRightGrid = new ax5.ui.grid();
