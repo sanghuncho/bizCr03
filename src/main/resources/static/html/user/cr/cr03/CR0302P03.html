@@ -2,172 +2,328 @@
 .popup_bottom_btn {
 	bottom: 25px;
 }
-
-.columnSideBySide {
-  /* float: left;
-  padding: 5px;
-  width: 50%; */
-  flex: 50%;
-}
-
-.rowSideBySide {
-/*.rowSideBySide::after {
-   content: "";
-  clear: both;
-  display: table; */
-  display: flex;
-}
 </style>
-<!-- <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/static/bootstrap/css/dashboard.css">
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/static/fontawesome/css/all.css">
-    <link rel="stylesheet" href="/static/css/ax5/ax5grid.css"/>
-    <link rel="stylesheet" href="/static/css/ax5/ax5mask.css"/>
-    <link rel="stylesheet" href="/static/css/ax5/ax5modal.css"/>
-    <link rel="stylesheet" href="/static/css/ax5/ax5toast.css"/>
-    <link rel="stylesheet" href="/static/css/jstree/style.min.css"/>
-    <link rel="stylesheet" href="/static/css/gnb.css"/>
-    <link rel="stylesheet" href="/static/css/main.css"/>
-    	<link rel="stylesheet" href="/static/css/sub.css" />
-    <link rel="stylesheet" href="/static/css/common.css"/>
 
-    <link rel="stylesheet" href="/static/css/sub.css"/>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-calendar/master/dist/ax5calendar.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.css">
-    <link rel="stylesheet" href="/static/css/ax5/ax5menu.css">
-
-   <script src="/static/js/jquery-latest.min.js"></script>
-   <script src="/static/js/jquery.serializeObject.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-     <script src="/static/bootstrap/js/bootstrap-datepicker.min.js"></script>
-    <script src="/static/bootstrap/js/bootstrap-datepicker.ko.min.js"></script>
-    <script src="/static/js/moment/moment-with-locales.js"></script>
-    <script src="/static/js/ax5/ax5core.min.js"></script>
-    <script src="/static/js/ax5/ax5calendar.min.js"></script> 
-    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-picker/master/dist/ax5picker.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-formatter/master/dist/ax5formatter.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/ax5ui/ax5ui-select/master/dist/ax5select.min.js"></script>
-    <script src="/static/js/ax5/ax5grid.min.js"></script>
-    <script src="/static/js/ax5/ax5mask.min.js"></script>
-    <script src="/static/js/ax5/ax5modal.min.js"></script>
-    <script src="/static/js/ax5/ax5toast.min.js"></script>
-    <script src="/static/js/jstree/jstree.min.js"></script>
-    <script src="/static/js/ax5/ax5menu.min.js"></script>
-    <script type="text/javascript" src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/static/js/global.js"></script>
-    <script src="/static/js/fileTree.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
-   
-    <style>
-
-    </style>
-
-</head> -->
 <div class="popup_area of_a" style=" height: 100%;">
     <div id="first-focus" class="tit_contents">
         <h4 class="tit">구매BOM</h4>
     </div>
-    <div class="popup_table" style="">
-        <div class="toggle-div" style="padding-left: 0;">
-            <div class="" style="padding-left: 0;">
-                <div id="est_grid" class="contents"
-                     style="margin:0px; padding:0px; height: 380px; width: 100%; min-width: 200px;border-radius:0;">
-                    <h3 class="location">
-                        <a class="file_tag" id="file_tag"
-                           style="font-weight:bold ; color: blue; padding-left: 20px;padding-right: 10px;"></a>
-                        <span class="page_tit" style="text-align: right;"></span>
-                    </h3>
-		             <!-- 첨부파일 -->
-		            <div class="toggle-div" style="padding-left: 0;margin-bottom:40px;">
-				        <div class="row" style="margin-top: 15px;margin-right:0px;margin-left:0px;">
-				            <div class="col-xs-2" style="padding-right: 5px;">
-				                <div class="contents"
-				                     style="margin: 0; padding: 0;width: 100%; min-width: 200px;height:380px;border-radius: 0">
-				
-				                    <div id="treeview" style="padding: 5px">
-				                        <div style="text-align: center;" class="location">
-				                            <span class="page_tit"> 파일트리</span>
-				                        </div>
-				                        <div id="deptTree"></div>
-				                    </div>
-				                </div>
-				            </div>
-				
-				            <div class="col-xs-10" style="padding-left: 0;">
-				                <div class="contents"
-				                     style="margin: 0; padding: 0;   width: 100%; min-width: 200px;height:380px;border-radius:0;text-align:center">
-				                    <h3 class="location">
-				                        <a class="file_tag" id="file_tag"
-				                           style="font-weight: bold; color: blue; padding-left: 20px; padding-right: 10px;"></a>
-				                        <span class="page_tit" id="file_tit" style="text-align: right;"> 문서현황</span>
-				                    </h3>
-				
-				                    <button disabled type="button" id="button_file" class=""
-				                            style="  background-color: gray;height: 25px; line-height: 15px;" onclick="file.click();"
-				                            authchk>
-				                        	첨부파일
-				                    </button>
-				                              <button  type="button" id="zip_down" class=""
-				                                       style="display:none;height: 25px; line-height: 15px;"
-				                                       authchk>
-				                                   파일 전체 다운로드
-				                               </button>
-				                    <div class="ax5_grid" data-ax5grid="file-grid-popup" data-ax5grid-config="{}"
-				                         style="height: 300px; width: 95%;margin: auto;"></div>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
-				    <!-- 첨부파일 end -->
-				    <!--  구매, 자제정보 -->
-				    <div class="rowSideBySide">
-	                    <div class="columnSideBySide">
-					        <div class="contents_tit">
-					            <div>
-					                <div class="add_btn_small pdl10" style="margin-right:8px;">
-					                    <a onclick="insertProjectModal('C')" style="height: 30px; line-height: 28px;" authchk>+</a>
-					                    <a onclick="deleteEst()" style="height: 30px; line-height: 28px;" authchk>-</a>
-					                </div>
-					            </div>
-					        </div>
-		                    <div class="contents" style="margin:0px;padding:0 5px;height:80%;min-width:200px">
-		                        <div data-ax5grid="bottom-left-grid" data-ax5grid-config="{}" style="height:300px;"></div>
-		                    </div>
-		                </div>
-		                <div class="columnSideBySide">
-					        <div class="contents_tit">
-					            <div>
-					                <div class="add_btn_small pdl10" style="margin-right:8px;">
-					                    <a onclick="insertProjectModal('C')" style="height: 30px; line-height: 28px;" authchk>+</a>
-					                    <a onclick="deleteEst()" style="height: 30px; line-height: 28px;" authchk>-</a>
-					                </div>
-					            </div>
-					        </div>
-		                    <div class="contents" style="margin:0px;padding:0 5px 100px;height:80%;min-width:300px;">
-		                        <div data-ax5grid="bottom-right-grid" data-ax5grid-config="{}" style="height:300px;"></div>
-		                    </div>
-		                </div>
-		            </div>
-		            <!-- 구매, 자제정보 end -->
-                </div>
-            </div>
+    <div style="text-align: right;background:#dddddd">
+        <a class="tbody_more_btn"></a>
+    </div>
+    <div class="toggle-div" style="padding-left: 0;width:80%">
+        <div class="popup_table">
+
+            <form id="popForm">
+                <input type="hidden" id="pgmId" name="pgmId" value="CR0101M01">
+                <table>
+                    <tr>
+                        <th class="hit" title="">품번</th>
+                        <td>
+	                        <div class="search_form">
+	                            <input type="text" id="matrCd_S" name="matrCd_S" class="modal-clntPjt_S">
+	                        </div>
+	                    </td>
+                        <th class="hit">품명</th>
+	                    <td>
+	                        <div class="search_form">
+	                            <input type="text" id="matrNm_S" name="matrNm_S" class="modal-clntPjt_S">
+	                        </div>
+	                    </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="hit" title="">품목구분</th>
+                        <td>
+                            <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+                        </td>
+                        <th class="">거래처분류</th>
+	                    <td>
+	                        <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+	                    </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">자제유형</th>
+                        <td>
+                            <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+                            	<option value="">전체</option>
+                        	</select>
+                        </td>
+                        <th class="hit">자제그룹</th>
+	                    <td>
+	                        <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+	                    </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">재질</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">사이즈</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">규격</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">Maker</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">형번</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">중량</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">관리단위</th>
+                        <td>
+                            <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">원산지</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">대표도번</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">입고검사구분</th>
+                        <td>
+                            <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+                        </td>
+                        <th class="" title="">리드타임</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">구매/외주</th>
+                        <td>
+                            <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+                        </td>
+                        <th class="" title="">최소발주량</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">안전재고</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="matrSaftQty_S" name="matrSaftQty_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">재고관리여부</th>
+                        <td>
+                            <select id="itemList_S" style="width:100%;" data-kind="ITEMLIST" onchange="gridView.setData(0);"
+                                required="required">
+	                            <option value="">전체</option>
+	                        </select>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">2D설계소요일</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">3D설계소요일</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">2D평균소요일</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">3D평균소요일</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">최종생산소요일</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">평균생산소요일</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">구매업체1</th>
+                        <td>
+                            <input type="hidden" id="salesCd_S" name="salesCd_S">
+	                        <div class="search_form">
+	                            <input type="text" id="salesCdNm_S" name="salesCdNm_S">
+	                            <a onclick="opendSalesCdSearch($('#salesCdNm_S').val());">
+	                                <i class="i_search_w"></i>
+	                            </a>
+	                        </div>
+                        </td>
+                        <th class="" title="">발주비율1</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">구매업체2</th>
+                        <td>
+                            <input type="hidden" id="salesCd_S" name="salesCd_S">
+	                        <div class="search_form">
+	                            <input type="text" id="salesCdNm_S" name="salesCdNm_S">
+	                            <a onclick="opendSalesCdSearch($('#salesCdNm_S').val());">
+	                                <i class="i_search_w"></i>
+	                            </a>
+	                        </div>
+                        </td>
+                        <th class="" title="">발주비율2</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">구매업체3</th>
+                        <td>
+                            <input type="hidden" id="salesCd_S" name="salesCd_S">
+	                        <div class="search_form">
+	                            <input type="text" id="salesCdNm_S" name="salesCdNm_S">
+	                            <a onclick="opendSalesCdSearch($('#salesCdNm_S').val());">
+	                                <i class="i_search_w"></i>
+	                            </a>
+	                        </div>
+                        </td>
+                        <th class="" title="">발주비율3</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">최종구매단가</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">평균구매단가</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th class="" title="">최종거래일자</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                        <th class="" title="">설계대상구분</th>
+                        <td>
+                            <div class="search_form">
+	                            <input type="text" id="clntPjt_S" name="clntPjt_S" class="modal-clntPjt_S">
+	                        </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </div>
     <br>
-   
     <!-- 하단 버튼 -->
     <div class="popup_bottom_btn">
         <button id="actionBtn" authchk>등록</button>
-        <button class="close_btn" onclick="modalStack.close();">닫기</button>
+        <button class="close_btn" onclick="  modalStack.close();">닫기</button>
     </div>
 </div>
 
@@ -239,16 +395,6 @@
         });
 
 
-    }
-    
-    function opendSalesCdSearch(inputValue) {
-    	openSecondModalPopUp("/static/html/cmn/modal/salesCdSearch.html", 600, 420, "Sales Code 검색", {searchValue: inputValue}, function (grid) {
-            var row = grid.target.getList("selected")[0];
-            console.log(row)
-            /* $('#ordrsClntCd_S').val(row.clntCd);
-            $('#ordrsClntNm_S').val(row.clntNm);
-            gridView.setData(0); */
-        });
     }
 
     // 거래처 검색 함수
@@ -636,11 +782,13 @@
     $(document).on("click", "#fileBtn", function () {
         $("#file").click();
     });
-    
+
+
     /* document.ready */
     $(document).ready(function () {
-    	//$("#coCd").val(jwt.coCd)
-		
+    	console.log("자제정보 모달")
+        $("#coCd").val(jwt.coCd)
+
         try {
             $("#coCd").focus();
             $("#coCd").trigger("click");
@@ -728,7 +876,7 @@
             var month = currentDate.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
             var day = currentDate.getDate();
 
-			// 월과 일이 한 자리수라면 앞에 '0'을 추가합니다.
+// 월과 일이 한 자리수라면 앞에 '0'을 추가합니다.
             if (month < 10) month = '0' + month;
             if (day < 10) day = '0' + day;
 
@@ -794,476 +942,45 @@
             }
         }).trigger('change');
     });
-	/* end (document).ready */
-	
+
     function fetchCurrencyData() {
-        /* var paramObj = {"codeKind": "UNITDIV", "useYn": "Y"};
-        var paramObj2 = {"codeKind": "ESTDIV", "useYn": "Y"};
-
+    	
+    	console.log("자재정보 모달 fetch currency")
+    	var paramModal = modalStack.last().paramObj;
+    	console.log(paramModal)
+    	
+        var paramObjData = {
+    		"coCd": paramModal.coCd, 
+    		"salesCd": paramModal.salesCd
+    	};
+    	
         var promise1 = new Promise(function (resolve, reject) {
-            postAjax("/admin/cm/cm05/selectCodeList", paramObj, null, function (data) {
-                if (data && data.codeList) {
-                    var codeList = data.codeList;
-                    var options = codeList.map(function (code) {
-                        return {
-                            value: code.codeNm,
-                            text: code.codeNm
-                        };
-                    });
-                    resolve(options);
+        postAjax("/user/cr/cr03/selectEstList", paramObjData, null, function (data) {
+            	if (data) {
+            		console.log(data);
+                    resolve(data);
                 } else {
-                    console.error("codeList is undefined. Check the AJAX response:", data);
+                    console.error("data is undefined. Check the AJAX response:", data);
                     reject(data);
                 }
             });
         });
 
-        var promise2 = new Promise(function (resolve, reject) {
-            postAjax("/admin/cm/cm05/selectCodeList", paramObj2, null, function (data) {
-                if (data && data.codeList) {
-                    var codeList = data.codeList;
-                    var options2 = codeList.map(function (code) {
-                        return {
-                            value: code.codeNm,
-                            text: code.codeNm
-                        };
-                    });
-                    resolve(options2);
-                } else {
-                    console.error("codeList is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        }); */
-        
-        var paramObjTopLeft = {"coCd": $('#coCd_S_Org').val()};
-        var promiseTopLeft = new Promise(function (resolve, reject) {
-            postAjax("/user/cr/cr03/selectEstList", paramObjTopLeft, null, function (data) {
-                if (data) {
-                    resolve(data);
-                } else {
-                    console.error("topLeftGridData is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
-        
-        var paramObjTopRight = {"coCd": ""};
-        var promiseTopRight = new Promise(function (resolve, reject) {
-            postAjax("/user/cr/cr03/selectEstList", paramObjTopRight, null, function (data) {
-                if (data) {
-                    resolve(data);
-                } else {
-                    console.error("topLeftGridData is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
-        
-        var paramObjBottomLeft = {"coCd": ""};
-        var promiseBottomLeft = new Promise(function (resolve, reject) {
-            postAjax("/user/cr/cr03/selectEstList", paramObjBottomLeft, null, function (data) {
-                if (data) {
-                    resolve(data);
-                } else {
-                    console.error("topLeftGridData is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
-        
-        var paramObjBottomRight = {"coCd": ""};
-        var promiseBottomRight = new Promise(function (resolve, reject) {
-            postAjax("/user/cr/cr03/selectEstList", paramObjBottomRight, null, function (data) {
-                if (data) {
-                    resolve(data);
-                } else {
-                    console.error("topLeftGridData is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
+        return Promise.all([promise1]);
+    }
 
-        return Promise.all([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]);
-    }
-    /*  end fetchCurrencyData */
-    
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-		/* var topLeftGrid = new ax5.ui.grid();
-    	topLeftGrid.setConfig({
-            target: $('[data-ax5grid="top-left-grid"]'),
-            columns: [
-            	{key: "matrDrwNo", label: "대표도번"},
-                {key: "matrPartNo", label: "PART"},
-                {key: "unitNo", label: "UNIT"},
-                {key: "revNo", label: "REV"},
-                {key: "matrCd", label: "품번"},
-                {key: "matrNm", label: "품명"},
-                {key: "matrSaftQty", label: "수량"},
-            ]
-        });
-    	topLeftGrid.setData({
-            list: promiseTopLeft.estList,
-            page: {
-                currentPage: promiseTopLeft.paginationInfo.currentPageNo,
-                pageSize: promiseTopLeft.paginationInfo.pageSize,
-                totalElements: promiseTopLeft.estList.length,
-                totalPages: promiseTopLeft.paginationInfo.totalPageCount
-            }
-        }); */
-    	setTopLeftTableData(promiseTopLeft)
-    });
-    
-    function setTopLeftTableData(data){
-    	var topLeftGrid = new ax5.ui.grid();
-    	topLeftGrid.setConfig({
-            target: $('[data-ax5grid="top-left-grid"]'),
-            columns: [
-            	{key: "matrDrwNo", label: "대표도번"},
-                {key: "matrPartNo", label: "PART"},
-                {key: "unitNo", label: "UNIT"},
-                {key: "revNo", label: "REV"},
-                {key: "matrCd", label: "품번"},
-                {key: "matrNm", label: "품명"},
-                {key: "matrSaftQty", label: "수량"},
-            ]
-        });
-    	topLeftGrid.setData({
-            list: data.estList,
-            page: {
-                currentPage: data.paginationInfo.currentPageNo,
-                pageSize: data.paginationInfo.pageSize,
-                totalElements: data.estList.length,
-                totalPages: data.paginationInfo.totalPageCount
-            }
-        });
-    }
-        
-    function updateTopLeftTableData(){
-    	var formData = {
-                "coCd": $('#coCd_S_Org').val()
-        }
-    	console.log("updateTopLeftTableData")
-    	console.log(formData)
-    	postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
-    		setTopLeftTableData(data);
-    	});
-    }
-    
-    
-    
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-		var topRightGrid = new ax5.ui.grid();
-		topRightGrid.setConfig({
-            target: $('[data-ax5grid="top-right-grid"]'),
-            columns: [
-            	{key: "unitNo", label: "UNIT"},
-                {key: "revNo", label: "Rev"},
-                {key: "matrCd", label: "품번"},
-                {key: "matrNm", label: "품명"},
-                {key: "matrMat", label: "소재"},
-                {key: "matrMakrNm", label: "MAKER"},
-                {key: "matrMno", label: "형번"},
-                {key: "matrSpec", label: "규격"},
-                {key: "matrSaftQty", label: "수량"}
-            ]
-        });
-		topRightGrid.setData({
-            list: promiseTopRight.estList,
-            page: {
-                currentPage: promiseTopRight.paginationInfo.currentPageNo,
-                pageSize: promiseTopRight.paginationInfo.pageSize,
-                totalElements: promiseTopRight.estList.length,
-                totalPages: promiseTopRight.paginationInfo.totalPageCount
-            }
-        });
-    });
-    
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-    	var bottomLeftGrid = new ax5.ui.grid();
-    	bottomLeftGrid.setConfig({
-    		target: $('[data-ax5grid="bottom-left-grid"]'),
-            columns: [
-            	{key: "salesCd", label: "Sales Code",width: 80,},
-                {key: "unitNo", label: "UNIT",width: 80,},
-                {key: "partNo", label: "PART",width: 80,},
-                {key: "revNo", label: "Rev",width: 80,},
-            ]
-        });
-    	bottomLeftGrid.setData({
-            list: promiseBottomLeft.estList,
-            page: {
-                currentPage: promiseBottomLeft.paginationInfo.currentPageNo,
-                pageSize: promiseBottomLeft.paginationInfo.pageSize,
-                totalElements: promiseBottomLeft.estList.length,
-                totalPages: promiseBottomLeft.paginationInfo.totalPageCount
-            }
-        });
-    });
-    
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-    	var bottomRightGrid = new ax5.ui.grid();
-    	bottomRightGrid.setConfig({
-            target: $('[data-ax5grid="bottom-right-grid"]'),
-            columns: [
-                {key: "upperCd", label: "상위"},
-                {key: "partNo", label: "PART"},
-                {key: "unitNo", label: "UNIT"},
-                {key: "revNo", label: "Rev"},
-                {key: "matrCd", label: "품번"},
-                {key: "matrNm", label: "품명"},
-                {key: "matrMat", label: "소재"},
-                {key: "matrMakrNm", label: "MAKER"},
-                {key: "matrMno", label: "형번"},
-                {key: "matrSpec", label: "규격"},
-                {key: "matrSaftQty", label: "수량"},
-                {key: "matrBtn", label: "기능버튼"},
-            ]
-        });
-    	bottomRightGrid.setData({
-            list: promiseBottomRight.estList,
-            page: {
-                currentPage: promiseBottomRight.paginationInfo.currentPageNo,
-                pageSize: promiseBottomRight.paginationInfo.pageSize,
-                totalElements: promiseBottomRight.estList.length,
-                totalPages: promiseBottomRight.paginationInfo.totalPageCount
-            }
-        });
-    });
+    fetchCurrencyData().then(function ([promise1]) {
+    	var listDetail = promise1.estList;
+    	console.log(listDetail[0]);
+    	console.log(listDetail[0].matrSaftQty);
+    	$("#matrSaftQty_S").val(listDetail[0].matrSaftQty)
+    })
     
     let selectedRowKey;
     let previousSelectedRowKey;
     let selectedPrdtCd;
     let selectedPrdtNm;
 	const thirdgrid = new ax5.ui.grid();
-    fetchCurrencyData().then(function ([options, options2]) {
-    	thirdgrid.setConfig({
-            target: $('[data-ax5grid="third-grid"]'),
-            columns: [
-                {
-                    key: "estSeq", label: "번호", width: 40, align: "center", formatter: function () {
-                        return this.item.__index + 1;
-                    },
-                },
-
-                {
-                    key: "estDtlDiv", label: "UNIT", width: 80, align: "center", editor: {
-                        type: "select",
-                        config: {
-                            columnKeys: {
-                                optionValue: 'value',
-                                optionText: 'text'
-                            },
-                            options: options2,
-
-
-                        }
-                    }
-                },
-                {
-                    key: "estComm", label: "Rev", align: "center", width: 80, editor: {
-                        type: "text"
-                    }
-                },
-                {key: "estSpec", label: "품번", align: "center", width: 80, editor: {type: "text"}},
-                {
-                    key: "estUnit", label: "품명", align: "center", width: 80, editor: {
-                        type: "select",
-                        config: {
-                            columnKeys: {
-                                optionValue: 'value',
-                                optionText: 'text'
-                            },
-                            options: options // 서버에서 가져온 데이터를 사용
-                        },
-                        event: {
-                            'blur': function () {
-                                // logic to select the next input field and focus it
-                            },
-                            'keydown': function (e) {
-                                if (e.keyCode == 9) { // tab key
-                                    // logic to select the next input field and focus it
-                                }
-                            }
-                        }
-                    }
-                },
-                {key: "estQty", label: "소재", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-                {key: "estUpr", label: "MAKER", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-                {
-                    key: "estAmt", label: "형번", width: 100, align: "right", formatter: function () {
-                        color = '#0000FF';
-                        const sumEst = this.item.estQty * this.item.estUpr;
-                        return '<div style="color: ' + color + '">' + sumEst.toLocaleString('en-US') + '</div>';
-                    }
-                },
-                {key: "estUpr", label: "규격", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-                {key: "estUpr", label: "수량", align: "right", width: 80, editor: {type: "number"}, formatter: "money"},
-            ],
-
-            footSum: [
-                [
-                    {label: "총합계", align: "center", colspan: 7},
-                    {key: "estAmtAll", collector: "sum", formatter: "money", align: "right"},
-                ]
-            ],
-            body: {
-                grouping: {
-                    by: ["estDtlDiv"],
-                    columns: [
-                        {label: "소계", colspan: 7, align: "center"},
-                        {
-                            key: "estAmtMid",
-                            collector: function () {
-                                let sum = 0;
-                                this.list.forEach(function (n) {
-                                    if (!n.__grouping) sum += n.estQty * n.estUpr;
-                                });
-                                return sum;
-                                //중간소계
-                            },
-                            formatter: "money",
-                            align: "right",
-                        },
-                    ],
-
-                },
-                onClick: function () {
-                    this.self.clearSelect();
-                    this.self.select(this.dindex);
-                    const subtotalRowsBeforeIndexEs = countSubtotalRowsBeforeIndexEst(this, this.dindex);
-                    const realIndex = this.dindex - subtotalRowsBeforeIndexEs;
-                    selectedRowKey = realIndex;
-                    if (this.column.key == 'estComm') {
-                        var _this = this;
-
-                        // 선택된 행의 "estDtlDiv"값을 가져옵니다.
-                        let estDtlDivValue = thirdgrid.list[selectedRowKey].estDtlDiv;
-
-                        // 만약 "estDtlDiv"값이 "제작품"이라면 openPrdtSearch 함수를 호출합니다.
-
-                    }
-
-                }
-            },
-            contextMenu: {
-                iconWidth: 20,
-                acceleratorWidth: 100,
-                itemClickAndClose: false,
-                icons: {
-                    'arrow': '<i class="fa fa-caret-right"></i>'
-                },
-                items: [
-                    {type: 1, label: "붙여넣기"},
-                    {divide: true},
-                    {
-                        label: "작업선택",
-                        items: [
-                            {type: 1, label: "줄추가"},
-                            {type: 1, label: "내용 삭제"},
-                            {type: 2, label: "줄삭제"},
-                        ]
-                    },
-                ],
-                popupFilter: function (item, param) {
-                    //console.log(item, param);
-                    if (param.element) {
-                        return true;
-                    } else {
-                        return item.type == 1;
-                    }
-                },
-                onClick: function (item, param) {
-                    console.log(item, param);
-                    thisGridRow = param.dindex;
-                    thisGridCol = param.colIndex;
-
-                    if (item.label == "붙여넣기") {
-                        gridPaste(thisGridRow, thisGridCol);
-                    } else if (item.label == "줄추가") {
-                        console.log('추가 인덱스 :', param.dindex);
-                        //.addRow(추가할 내용, 삽인할위치(생략시 마지막),갯수)
-                        thirdgrid.addRow($.extend({}, thirdgrid.list[param.dindex], {__index: undefined}), param.dindex + 1,);
-                        thirdgrid.setValue(param.dindex, 'updcheck', 1);
-
-                    } else if (item.label == "내용 삭제") {
-                        console.log('내용삭제 인덱스 :', param.dindex);
-
-                        grid.config.columns.forEach((column) => {
-                        	thirdgrid.setValue(param.dindex, column.key, '');
-                        	thirdgrid.setValue(param.dindex, 'updcheck', 1);
-                            console.log('내용삭제 :', param.dindex, column.key);
-                        });
-
-                    } else if (item.label == "줄삭제") {
-                        console.log('삭제 인덱스 :', param.dindex);
-                        const subtotalRowsBeforeIndexEst = countSubtotalRowsBeforeIndexEst(thirdgrid, param.dindex);
-                        const realIndexEst = param.dindex - subtotalRowsBeforeIndexEst;
-                        thirdgrid.removeRow(realIndexEst);
-                    }
-
-
-                    thirdgrid.contextMenu.close();
-                    //또는 return true;
-
-                }
-            }
-
-        });
-    	thirdgrid.setColumnSort({
-            "estSeq": {orderBy: "asc", seq: 0},
-        });
-        let isUpdating = false;  // isUpdating 플래그 선언
-        thirdgrid.onDataChanged = function () {
-
-            if (this.item.estDtlDiv == undefined || isUpdating) {
-                return;
-            } else {
-                isUpdating = true;  // 업데이트 시작을 표시
-
-                const data = thirdgrid.getList();
-                data.forEach((item, index) => {
-                    item.estAmtAll = item.estQty * item.estUpr;  // 합계 계산 및 설정
-                });
-                thirdgrid.setData({
-                    list: data,
-                    page: {
-                        totalElements: data.length
-                    }
-                });
-                isUpdating = false;  // 업데이트 종료를 표시
-            }
-
-
-        };
-        let checkDataInterval = null;
-
-        thirdgrid.onLoad = function () {
-            checkDataInterval = setInterval(() => {
-                const dataEst = thirdgrid.getList();
-
-                // 데이터가 로드되었는지 확인합니다.
-                if (dataEst.length > 0) {
-                    clearInterval(checkDataInterval);  // 데이터가 로드되었다면 체크를 중단합니다.
-
-                    dataEst.forEach((item, index) => {
-                        item.estAmtAll = item.estQty * item.estUpr;  // 합계 계산 및 설정
-                    });
-
-
-                    thirdgrid.setData({
-                        list: dataEst,
-                        page: {
-                            totalElements: dataEst.length
-                        }
-                    });
-                }
-            }, 100);  // 1초 간격으로 체크합니다.
-        };
-
-    })
-    /* end fetchCurrencyData */
-    
     const wstgrid = new ax5.ui.grid();
     fetchCurrencyData().then(function ([options, options2]) {
     	wstgrid.setConfig({
@@ -1489,7 +1206,7 @@
             }, 100);  // 1초 간격으로 체크합니다.
         };
 
-    })// end fetchCurrencyData
+    })
     
     function countSubtotalRowsBeforeIndex(wstgrid, index) {
         let count = 0;
@@ -1561,8 +1278,7 @@
                 totalElements: data.length
             }
         });
-    }); // end addProductButton
-    
+    });
     $("#deleteProductButton").on("click", function () {
         if (selectedRowKey !== undefined) {
         	wstgrid.removeRow(selectedRowKey);
@@ -1590,7 +1306,7 @@
         } else {
             alert("삭제를 위해 선택된 행이 없습니다.");
         }
-    });// end deleteProductButton
+    });
 
     function addEstDtlDivWithPreset() {
 
@@ -1864,20 +1580,8 @@
         return true;
     }
 
-    function openPrdtSearch(gridIn) {
-        var paramObj = {
-            "coCd": $('#coCd').val(),
-            "prdtCd": $('#prdtId_S').val(),
-            "prdtNm": $('#prdtNm_S').val(),
-            "useYn": "Y"
-        }
-        openSecondModal("/static/html/cmn/modal/prdtSearch.html", 800, 600, "제품 검색", paramObj, function (grid2) {
-            var row = grid2.target.getList("selected")[0];
-            gridIn.item.estComm = row.prdtNm;
-            gridIn.self.repaint();
-
-        });
+    function focusOnGrid() {
+    	wstgrid.focus(0, 'estSeq');
     }
-    
 </script>
 </html>
