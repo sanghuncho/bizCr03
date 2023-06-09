@@ -7,4 +7,5 @@ public interface CR03Svc {
     public int selectEstCount(Map<String, String> param);
     public List<Map<String, Object>> selectEstList(Map<String, String> param);
     int deleteEst(Map<String, String> paramMap);
+    Map<String, Object> updateEst(Map<String, String> paramMap);
 }

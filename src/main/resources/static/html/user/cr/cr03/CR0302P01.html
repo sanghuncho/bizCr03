@@ -207,7 +207,7 @@
    
     <!-- 하단 버튼 -->
     <div class="popup_bottom_btn">
-        <button id="actionBtn" authchk>등록</button>
+        <button id="actionBtn" onclick="updateTable()" authchk>등록</button>
         <button class="close_btn" onclick="modalStack.close();">닫기</button>
     </div>
 </div>
@@ -231,31 +231,37 @@
 		topLeftGrid.removeRow();
 	}
 	
-	function updateTopLeftTable() {
-		var rowList = shipGridView.target.getList("selected");
+	function updateTable() {
+		var rowList = topLeftGrid.list;
+		console.log(rowList)
+		
 		if(rowList.length == 0) {
-			alert("접수 건을 선택해주세요");
+			alert("추가할 행이 존재하지 않습니다.");
 			return;
-		}		
+		}
+		
 		var detailArr = [];
 		
 		$.each(rowList, function(idx, elem){
 			var detailObj = {};
-			detailObj["shipSeq"] = elem.shipSeq;
-			detailObj["recptYn"] = "Y";
-			detailObj["pgmId"] = "AR0101M01";
-			detailObj["userId"] = jwt.userId;
+			detailObj["matrDrwNo"] = elem.matrDrwNo;
+			detailObj["matrPartNo"] = elem.matrPartNo;
+			detailObj["unitNo"] = elem.unitNo;
+			detailObj["revNo"] = elem.revNo;
+			detailObj["matrCd"] = elem.matrCd;
+			detailObj["matrNm"] = elem.matrNm;
+			detailObj["matrSaftQty"] = elem.matrSaftQty;
 			detailArr.push(detailObj);
 		});
 		
 		var formData = {
-			"detailArr" : detailArr
+			"detailArr" : JSON.stringify(detailArr)
 		}
-		
-		putAjax("/user/ar/ar01/updateRecptYn", formData, null, function(data){
+		console.log("formData" + formData.detailArr)
+		postAjax("/user/cr/cr03/updateEst", formData, null, function(data){
 			if(data.resultCode == 200){
 				alert(data.resultMessage);
-				shipGridView.setData(0);
+				//shipGridView.setData(0);
 			}
 		});
 	}

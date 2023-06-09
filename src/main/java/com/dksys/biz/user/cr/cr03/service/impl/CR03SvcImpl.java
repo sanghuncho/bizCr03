@@ -1,5 +1,6 @@
 package com.dksys.biz.user.cr.cr03.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ public class CR03SvcImpl implements CR03Svc {
         int result = cr03Mapper.deleteEst(paramMap);
         result += cr03Mapper.deleteAllEstDetails(paramMap);
         return result;
+    }
+
+    @Override
+    public Map<String, Object> updateEst(Map<String, String> paramMap) {
+        Map<String, Object> responseMap = new HashMap<>();
+        
+        
+        
+        responseMap.put("resultCode",0);
+        return responseMap;
     }
 
 }

@@ -3,12 +3,18 @@ package com.dksys.biz.user.cr.cr03;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.dksys.biz.user.cr.cr03.model.CR0302P01Model;
+import com.dksys.biz.user.cr.cr03.model.CR0302P01ModelList;
 import com.dksys.biz.user.cr.cr03.service.CR03Svc;
 import com.dksys.biz.user.cr.cr03.util.MessageUtils;
 import com.dksys.biz.user.cr.cr03.vo.PaginationInfo;
@@ -41,6 +47,21 @@ public class CR03Ctr {
         
         model.addAttribute("resultCode", cr03svc.deleteEst(paramMap));
         model.addAttribute("resultMessage", messageUtils.getMessage("delete"));
+        return "jsonView";
+    }
+    
+    @PostMapping(value = "/updateEst")
+    public String updateEst(@RequestBody Map<String, String> paramMap, ModelMap model) {
+        System.out.println(paramMap.get("detailArr"));
+//        try {
+//            Map<String, Object> updateEstMap =  cr03svc.updateEst(paramMap);
+//            model.addAttribute("resultCode", updateEstMap.get("resultCode"));
+//            model.addAttribute("resultMessage", messageUtils.getMessage("update"));
+//            model.addAttribute("param", updateEstMap );
+//        }catch(Exception e) {
+//            model.addAttribute("resultCode", 500);
+//            model.addAttribute("resultMessage", messageUtils.getMessage("fail"));
+//        }
         return "jsonView";
     }
 }
