@@ -62,3 +62,25 @@ COMMENT ON COLUMN TB_SM01D01.UDT_PGM IS '최종수정프로그램ID';
 COMMENT ON COLUMN TB_SM01D01.UDT_DTTM IS '최종변경일시';
 
 --DROP TABLE TB_SM01D01
+
+
+INSERT INTO TB_SM01D01
+(CO_CD, SALES_CD, BOM_SEQ,PART_NO, UNIT_NO,REV_NO)
+values ('9', '23001-01HTFUP', 'BOM-1','1','1', '1');
+
+INSERT INTO TB_SM01D01
+(CO_CD, SALES_CD, BOM_SEQ,PART_NO, UNIT_NO,REV_NO)
+values ('10', '77001-01HTFUP', 'BOM-1','1','1', '1');
+
+--건양ITT 10
+
+UPDATE TB_SM01D01
+        SET CO_CD   = #{matrPartNo, jdbcType=VARCHAR},
+            SALES_CD        = #{unitNo, jdbcType=VARCHAR},
+            BOM_SEQ   = #{revNo, jdbcType=VARCHAR},
+            PART_NO   = #{matrCd, jdbcType=VARCHAR},
+            UNIT_NO   = #{matrNm, jdbcType=VARCHAR},
+            REV_NO   = #{matrSaftQty, jdbcType=NUMERIC},
+        WHERE CO_CD = #{coCd, jdbcType=VARCHAR}
+          AND EST_NO = #{estNo, jdbcType=VARCHAR}
+          AND EST_DEG = #{estDeg, jdbcType=NUMERIC}

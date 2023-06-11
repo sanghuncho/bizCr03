@@ -36,7 +36,7 @@
                     <tr>
                         <th class="hit">회사</th>
 	                    <td>
-	                        <select id="coCd_S_Org" style="width:100%;" data-kind="CO" onchange="updateTopLeftTableData();"
+	                        <select id="coCd_S_Org" style="width:100%;" data-kind="CO"
 	                                required="required">
 	                            <option value="">전체</option>
 	                            <option value="10">건양ITT</option>
@@ -216,13 +216,17 @@
 
 	function addRow(){
 		var newRowData = {
-			matrDrwNo: "",
+			bomSeq: "",
 			matrPartNo: "",
 			unitNo: "",
 			revNo: "",
 			matrCd: "",
 			matrNm: "",
-			matrSaftQty: "",
+			/* coCd: $('#coCd_S_Org').val(),
+            salesCd: $('#salesCdNm_S_Org').val(),
+			unitNo: "",
+			revNo: "", */
+			
         };
 		topLeftGrid.addRow({}, topLeftGrid.length);
 	}
@@ -244,7 +248,10 @@
 		
 		$.each(rowList, function(idx, elem){
 			var detailObj = {};
-			detailObj["matrDrwNo"] = elem.matrDrwNo;
+			detailObj["coCd"] = $('#coCd_S_Org').val();
+			detailObj["salesCd"] = $('#salesCdNm_S_Org').val();
+			
+			detailObj["bomSeq"] = elem.bomSeq;
 			detailObj["matrPartNo"] = elem.matrPartNo;
 			detailObj["unitNo"] = elem.unitNo;
 			detailObj["revNo"] = elem.revNo;
@@ -258,7 +265,7 @@
 			"detailArr" : JSON.stringify(detailArr)
 		}
 		console.log("formData" + formData.detailArr)
-		postAjax("/user/cr/cr03/updateEst", formData, null, function(data){
+		postAjax("/user/cr/cr03/updateEstDetail", formData, null, function(data){
 			if(data.resultCode == 200){
 				alert(data.resultMessage);
 				//shipGridView.setData(0);
@@ -890,9 +897,10 @@
 	/* end (document).ready */
 	
     function fetchCurrencyData() {
-        var paramObjTopLeft = {"coCd": $('#coCd_S_Org').val()};
+		console.log("fetchCurrencyData")
+        var paramObjTopLeft = {"coCd": $('#coCd_S_Org').val(), "salesCd": $('#salesCdNm_S_Org').val()};
         var promiseTopLeft = new Promise(function (resolve, reject) {
-            postAjax("/user/cr/cr03/selectEstList", paramObjTopLeft, null, function (data) {
+            postAjax("/user/cr/cr03/selectEstDetailList", paramObjTopLeft, null, function (data) {
                 if (data) {
                     resolve(data);
                 } else {
@@ -919,7 +927,7 @@
     /*  end fetchCurrencyData */
     
     fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight]) {
-    	setTopLeftTableData(promiseTopLeft)
+    	//setTopLeftTableData(promiseTopLeft)
     	setTopRightTableData(promiseTopRight)
     });
     
@@ -928,7 +936,7 @@
     	topLeftGrid.setConfig({
             target: $('[data-ax5grid="top-left-grid"]'),
             columns: [
-            	{key: "matrDrwNo", label: "대표도번", editor: {type: "text"}},
+            	{key: "bomSeq", label: "대표도번", editor: {type: "text"}},
                 {key: "matrPartNo", label: "PART", editor: {type: "text"}},
                 {key: "unitNo", label: "UNIT", editor: {type: "text"}},
                 {key: "revNo", label: "REV", editor: {type: "text"}},
@@ -980,9 +988,8 @@
                 "coCd": $('#coCd_S_Org').val(),
                 "salesCd": $('#salesCdNm_S_Org').val()
         }
-    	console.log("updateTopLeftTableData")
-    	console.log(formData)
-    	postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+    	
+    	postAjax("/user/cr/cr03/selectEstDetailList", formData, null, function (data) {
     		setTopLeftTableData(data);
     	});
     }

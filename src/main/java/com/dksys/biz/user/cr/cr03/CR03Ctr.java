@@ -39,29 +39,51 @@ public class CR03Ctr {
         return "jsonView";
     }
     
+    @PostMapping("/selectEstDetailList")
+    public String selectEstDetailList(@RequestBody Map<String, String> param, ModelMap model) {
+        int totalCnt = cr03svc.selectEstDetailCount(param);
+        System.out.println(totalCnt+" 총 로우");
+        PaginationInfo paginationInfo = new PaginationInfo(param, totalCnt);
+        model.addAttribute("paginationInfo", paginationInfo);
+        List<Map<String, Object>> estList = cr03svc.selectEstDetailList(param);
+        model.addAttribute("estList", estList);
+        return "jsonView";
+    }
+    
     @DeleteMapping(value = "/deleteEst")
     public String deleteEst(@RequestBody Map<String, String> paramMap, ModelMap model) {
-//        Map<String, Integer> paramMapT = new HashMap<String, Integer>();
-//        paramMapT.put("fileTrgtKey", 9);
-//        model.addAttribute("resultCode", cr03svc.deleteEst(paramMapT));
-        
         model.addAttribute("resultCode", cr03svc.deleteEst(paramMap));
         model.addAttribute("resultMessage", messageUtils.getMessage("delete"));
         return "jsonView";
     }
     
-    @PostMapping(value = "/updateEst")
+    @PostMapping(value = "/updateEstDetail")
     public String updateEst(@RequestBody Map<String, String> paramMap, ModelMap model) {
         System.out.println(paramMap.get("detailArr"));
-//        try {
-//            Map<String, Object> updateEstMap =  cr03svc.updateEst(paramMap);
-//            model.addAttribute("resultCode", updateEstMap.get("resultCode"));
-//            model.addAttribute("resultMessage", messageUtils.getMessage("update"));
-//            model.addAttribute("param", updateEstMap );
-//        }catch(Exception e) {
-//            model.addAttribute("resultCode", 500);
-//            model.addAttribute("resultMessage", messageUtils.getMessage("fail"));
-//        }
+        try {
+            Map<String, Object> updateEstMap =  cr03svc.updateEst(paramMap);
+            model.addAttribute("resultCode", updateEstMap.get("resultCode"));
+            model.addAttribute("resultMessage", messageUtils.getMessage("update"));
+            model.addAttribute("param", updateEstMap );
+        }catch(Exception e) {
+            model.addAttribute("resultCode", 500);
+            model.addAttribute("resultMessage", messageUtils.getMessage("fail"));
+        }
+        return "jsonView";
+    }
+    
+    @PostMapping(value = "/insertEstDetail")
+    public String insertEstDetailList(@RequestParam Map<String, String> paramMap, ModelMap model) {
+        try {
+            Map<String, Object> newEstMap  = cr03svc.insertEstDetailList(paramMap);
+            System.out.println(newEstMap+"최종");
+            model.addAttribute("resultCode", 200);
+            model.addAttribute("resultMessage", messageUtils.getMessage("insert"));
+            model.addAttribute("param", newEstMap );
+        }catch(Exception e) {
+            model.addAttribute("resultCode", 500);
+            model.addAttribute("resultMessage", e.getLocalizedMessage());
+        }
         return "jsonView";
     }
 }

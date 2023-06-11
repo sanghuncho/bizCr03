@@ -19,10 +19,28 @@ public class CR03SvcImpl implements CR03Svc {
     public int selectEstCount(Map<String, String> param) {
         return cr03Mapper.selectEstCount(param);
     }
+    @Override
+    public int selectEstDetailCount(Map<String, String> param) {
+        return cr03Mapper.selectEstDetailCount(param);
+    }
 
     @Override
     public List<Map<String, Object>> selectEstList(Map<String, String> param) {
         return cr03Mapper.selectEstList(param);
+    }
+    @Override
+    public List<Map<String, Object>> selectEstDetailList(Map<String, String> param) {
+        return cr03Mapper.selectEstDetailList(param);
+    }
+    @Override
+    public Map<String, Object> insertEstDetailList(Map<String, String> param) {
+        Map<String, String> estDetail = new HashMap<String, String>();
+        estDetail.put("coCd", param.get("coCd"));
+        estDetail.put("salesCd", param.get("salesCd"));
+        estDetail.put("bomSeq", param.get("bomSeq"));
+        estDetail.put("unitNo", param.get("unitNo"));
+        estDetail.put("revNo", param.get("revNo"));
+        return cr03Mapper.insertEstDetailList(param);
     }
 
     @Override
