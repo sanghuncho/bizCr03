@@ -46,7 +46,7 @@
 	                    <td>
 	                        <input type="hidden" id="salesCd_S" name="salesCd_S">
 	                        <div class="search_form">
-	                            <input type="text" id="salesCdNm_S" name="salesCdNm_S">
+	                            <input type="text" id="salesCdNm_S_Org" name="salesCdNm_S_Org" onchange="updateTopLeftTableData();">
 	                            <a onclick="opendSalesCdSearch($('#salesCdNm_S').val());">
 	                                <i class="i_search_w"></i>
 	                            </a>
@@ -54,7 +54,7 @@
 	                    </td>
                         <th class="hit">회사</th>
 	                    <td>
-	                        <select id="coCd_S" style="width:100%;" data-kind="CO" onchange="gridView.setData(0);"
+	                        <select id="coCd_S_Clon" style="width:100%;" data-kind="CO" onchange="updateTopRightTableData();"
 	                                required="required">
 	                            <option value="">전체</option>
 	                            <option value="10">건양ITT</option>
@@ -64,7 +64,7 @@
 	                    <td>
 	                        <input type="hidden" id="salesCd_S" name="salesCd_S">
 	                        <div class="search_form">
-	                            <input type="text" id="salesCdNm_S" name="salesCdNm_S">
+	                            <input type="text" id="salesCdNm_S_Clon" name="salesCdNm_S_Clon" onchange="updateTopRightTableData();">
 	                            <a onclick="opendSalesCdSearch($('#salesCdNm_S').val());">
 	                                <i class="i_search_w"></i>
 	                            </a>
@@ -890,45 +890,6 @@
 	/* end (document).ready */
 	
     function fetchCurrencyData() {
-        /* var paramObj = {"codeKind": "UNITDIV", "useYn": "Y"};
-        var paramObj2 = {"codeKind": "ESTDIV", "useYn": "Y"};
-
-        var promise1 = new Promise(function (resolve, reject) {
-            postAjax("/admin/cm/cm05/selectCodeList", paramObj, null, function (data) {
-                if (data && data.codeList) {
-                    var codeList = data.codeList;
-                    var options = codeList.map(function (code) {
-                        return {
-                            value: code.codeNm,
-                            text: code.codeNm
-                        };
-                    });
-                    resolve(options);
-                } else {
-                    console.error("codeList is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
-
-        var promise2 = new Promise(function (resolve, reject) {
-            postAjax("/admin/cm/cm05/selectCodeList", paramObj2, null, function (data) {
-                if (data && data.codeList) {
-                    var codeList = data.codeList;
-                    var options2 = codeList.map(function (code) {
-                        return {
-                            value: code.codeNm,
-                            text: code.codeNm
-                        };
-                    });
-                    resolve(options2);
-                } else {
-                    console.error("codeList is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        }); */
-        
         var paramObjTopLeft = {"coCd": $('#coCd_S_Org').val()};
         var promiseTopLeft = new Promise(function (resolve, reject) {
             postAjax("/user/cr/cr03/selectEstList", paramObjTopLeft, null, function (data) {
@@ -953,58 +914,13 @@
             });
         });
         
-        var paramObjBottomLeft = {"coCd": ""};
-        var promiseBottomLeft = new Promise(function (resolve, reject) {
-            postAjax("/user/cr/cr03/selectEstList", paramObjBottomLeft, null, function (data) {
-                if (data) {
-                    resolve(data);
-                } else {
-                    console.error("topLeftGridData is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
-        
-        var paramObjBottomRight = {"coCd": ""};
-        var promiseBottomRight = new Promise(function (resolve, reject) {
-            postAjax("/user/cr/cr03/selectEstList", paramObjBottomRight, null, function (data) {
-                if (data) {
-                    resolve(data);
-                } else {
-                    console.error("topLeftGridData is undefined. Check the AJAX response:", data);
-                    reject(data);
-                }
-            });
-        });
-
-        return Promise.all([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]);
+        return Promise.all([promiseTopLeft, promiseTopRight]);
     }
     /*  end fetchCurrencyData */
     
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-		/* var topLeftGrid = new ax5.ui.grid();
-    	topLeftGrid.setConfig({
-            target: $('[data-ax5grid="top-left-grid"]'),
-            columns: [
-            	{key: "matrDrwNo", label: "대표도번"},
-                {key: "matrPartNo", label: "PART"},
-                {key: "unitNo", label: "UNIT"},
-                {key: "revNo", label: "REV"},
-                {key: "matrCd", label: "품번"},
-                {key: "matrNm", label: "품명"},
-                {key: "matrSaftQty", label: "수량"},
-            ]
-        });
-    	topLeftGrid.setData({
-            list: promiseTopLeft.estList,
-            page: {
-                currentPage: promiseTopLeft.paginationInfo.currentPageNo,
-                pageSize: promiseTopLeft.paginationInfo.pageSize,
-                totalElements: promiseTopLeft.estList.length,
-                totalPages: promiseTopLeft.paginationInfo.totalPageCount
-            }
-        }); */
+    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight]) {
     	setTopLeftTableData(promiseTopLeft)
+    	setTopRightTableData(promiseTopRight)
     });
     
     var topLeftGrid = new ax5.ui.grid();
@@ -1031,10 +947,38 @@
             }
         });
     }
+    
+    var topRightGrid = new ax5.ui.grid();
+    function setTopRightTableData(data){
+    	topRightGrid.setConfig({
+            target: $('[data-ax5grid="top-right-grid"]'),
+            columns: [
+            	{key: "unitNo", label: "UNIT"},
+                {key: "revNo", label: "Rev"},
+                {key: "matrCd", label: "품번"},
+                {key: "matrNm", label: "품명"},
+                {key: "matrMat", label: "소재"},
+                {key: "matrMakrNm", label: "MAKER"},
+                {key: "matrMno", label: "형번"},
+                {key: "matrSpec", label: "규격"},
+                {key: "matrSaftQty", label: "수량"}
+            ]
+        });
+    	topRightGrid.setData({
+            list: data.estList,
+            page: {
+                currentPage: data.paginationInfo.currentPageNo,
+                pageSize: data.paginationInfo.pageSize,
+                totalElements: data.estList.length,
+                totalPages: data.paginationInfo.totalPageCount
+            }
+        });
+    }
         
     function updateTopLeftTableData(){
     	var formData = {
-                "coCd": $('#coCd_S_Org').val()
+                "coCd": $('#coCd_S_Org').val(),
+                "salesCd": $('#salesCdNm_S_Org').val()
         }
     	console.log("updateTopLeftTableData")
     	console.log(formData)
@@ -1043,7 +987,19 @@
     	});
     }
     
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
+    function updateTopRightTableData(){
+    	var formData = {
+                "coCd": $('#coCd_S_Clon').val(),
+                "salesCd": $('#salesCdNm_S_Clon').val()
+        }
+    	console.log("updateTopRightTableData")
+    	console.log(formData)
+    	postAjax("/user/cr/cr03/selectEstList", formData, null, function (data) {
+    		setTopRightTableData(data);
+    	});
+    }
+    
+    /* fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
 		var topRightGrid = new ax5.ui.grid();
 		topRightGrid.setConfig({
             target: $('[data-ax5grid="top-right-grid"]'),
@@ -1068,60 +1024,8 @@
                 totalPages: promiseTopRight.paginationInfo.totalPageCount
             }
         });
-    });
-    
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-    	var bottomLeftGrid = new ax5.ui.grid();
-    	bottomLeftGrid.setConfig({
-    		target: $('[data-ax5grid="bottom-left-grid"]'),
-            columns: [
-            	{key: "salesCd", label: "Sales Code",width: 80,},
-                {key: "unitNo", label: "UNIT",width: 80,},
-                {key: "partNo", label: "PART",width: 80,},
-                {key: "revNo", label: "Rev",width: 80,},
-            ]
-        });
-    	bottomLeftGrid.setData({
-            list: promiseBottomLeft.estList,
-            page: {
-                currentPage: promiseBottomLeft.paginationInfo.currentPageNo,
-                pageSize: promiseBottomLeft.paginationInfo.pageSize,
-                totalElements: promiseBottomLeft.estList.length,
-                totalPages: promiseBottomLeft.paginationInfo.totalPageCount
-            }
-        });
-    });
-    
-    fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight, promiseBottomLeft, promiseBottomRight]) {
-    	var bottomRightGrid = new ax5.ui.grid();
-    	bottomRightGrid.setConfig({
-            target: $('[data-ax5grid="bottom-right-grid"]'),
-            columns: [
-                {key: "upperCd", label: "상위"},
-                {key: "partNo", label: "PART"},
-                {key: "unitNo", label: "UNIT"},
-                {key: "revNo", label: "Rev"},
-                {key: "matrCd", label: "품번"},
-                {key: "matrNm", label: "품명"},
-                {key: "matrMat", label: "소재"},
-                {key: "matrMakrNm", label: "MAKER"},
-                {key: "matrMno", label: "형번"},
-                {key: "matrSpec", label: "규격"},
-                {key: "matrSaftQty", label: "수량"},
-                {key: "matrBtn", label: "기능버튼"},
-            ]
-        });
-    	bottomRightGrid.setData({
-            list: promiseBottomRight.estList,
-            page: {
-                currentPage: promiseBottomRight.paginationInfo.currentPageNo,
-                pageSize: promiseBottomRight.paginationInfo.pageSize,
-                totalElements: promiseBottomRight.estList.length,
-                totalPages: promiseBottomRight.paginationInfo.totalPageCount
-            }
-        });
-    });
-    
+    }); */
+
     let selectedRowKey;
     let previousSelectedRowKey;
     let selectedPrdtCd;
