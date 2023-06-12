@@ -9,6 +9,7 @@ public interface CR03Svc {
     public List<Map<String, Object>> selectEstList(Map<String, String> param);
     public List<Map<String, Object>> selectEstDetailList(Map<String, String> param);
     Map<String, Object> insertEstDetailList(Map<String, String> param);
+    Map<String, Object> updateEstDetailList(Map<String, String> param);
     int deleteEst(Map<String, String> paramMap);
-    Map<String, Object> updateEst(Map<String, String> paramMap);
+    //Map<String, Object> updateEst(Map<String, String> paramMap);
 }

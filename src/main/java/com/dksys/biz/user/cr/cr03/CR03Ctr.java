@@ -61,7 +61,7 @@ public class CR03Ctr {
     public String updateEst(@RequestBody Map<String, String> paramMap, ModelMap model) {
         System.out.println(paramMap.get("detailArr"));
         try {
-            Map<String, Object> updateEstMap =  cr03svc.updateEst(paramMap);
+            Map<String, Object> updateEstMap =  cr03svc.updateEstDetailList(paramMap);
             model.addAttribute("resultCode", updateEstMap.get("resultCode"));
             model.addAttribute("resultMessage", messageUtils.getMessage("update"));
             model.addAttribute("param", updateEstMap );

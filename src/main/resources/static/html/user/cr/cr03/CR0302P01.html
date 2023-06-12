@@ -250,7 +250,6 @@
 			var detailObj = {};
 			detailObj["coCd"] = $('#coCd_S_Org').val();
 			detailObj["salesCd"] = $('#salesCdNm_S_Org').val();
-			
 			detailObj["bomSeq"] = elem.bomSeq;
 			detailObj["matrPartNo"] = elem.matrPartNo;
 			detailObj["unitNo"] = elem.unitNo;
@@ -927,7 +926,7 @@
     /*  end fetchCurrencyData */
     
     fetchCurrencyData().then(function ([promiseTopLeft, promiseTopRight]) {
-    	//setTopLeftTableData(promiseTopLeft)
+    	setTopLeftTableData(promiseTopLeft)
     	setTopRightTableData(promiseTopRight)
     });
     

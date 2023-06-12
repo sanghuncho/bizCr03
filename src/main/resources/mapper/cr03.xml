@@ -32,14 +32,9 @@
 	<select id="selectEstDetailList" resultType="CamelMap">
 		SELECT * FROM ( SELECT T.*,row_number() OVER (ORDER BY file_trgt_key) 
 		AS RNUM FROM (SELECT * FROM TB_SM01D01 
-					  <where> 1 = 1 
-					  <if test="coCd != null and !coCd.equals('')">
+					  where 1 = 1 
 		                AND co_cd = #{coCd}
-		              </if>
-		              <if test="salesCd != null and !salesCd.equals('')">
 		                AND sales_cd = #{salesCd}
-		              </if>
-					  </where>
 					  ) T ) Z
 	</select>
 	
@@ -61,20 +56,16 @@
         WHERE 1 = 1
           AND CO_CD = #{coCd}
     </delete>
-    <update id="updateEstDetail" parameterType="map">
-        UPDATE TB_CR01M01
-        SET MATR_DRW_NO   = #{matrPartNo, jdbcType=VARCHAR},
-            UNIT_NO        = #{unitNo, jdbcType=VARCHAR},
-            REV_NO   = #{revNo, jdbcType=VARCHAR},
-            MATR_CD   = #{matrCd, jdbcType=VARCHAR},
-            MATR_NM   = #{matrNm, jdbcType=VARCHAR},
-            MATR_SAFT_QTY   = #{matrSaftQty, jdbcType=NUMERIC},
+    <update id="updateEstDetailList" parameterType="map">
+        UPDATE TB_SM01D01
+        SET UNIT_NO = #{unitNo, jdbcType=VARCHAR},
+        	REV_NO = #{revNo, jdbcType=VARCHAR}
         WHERE CO_CD = #{coCd, jdbcType=VARCHAR}
           AND SALES_CD = #{salesCd, jdbcType=VARCHAR}
           AND BOM_SEQ = #{bomSeq, jdbcType=VARCHAR}
     </update>
     <insert id="insertEstDetailList" parameterType="map">
-        INSERT INTO TB_CR01M01
+        INSERT INTO TB_SM01D01
             (CO_CD, SALES_CD, BOM_SEQ,PART_NO, UNIT_NO,REV_NO)
         VALUES
             (#{coCd}, #{salesCd}, #{bomSeq}, #{partNo},
