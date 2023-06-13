@@ -264,7 +264,7 @@
 			"detailArr" : JSON.stringify(detailArr)
 		}
 		console.log("formData" + formData.detailArr)
-		postAjax("/user/cr/cr03/updateEstDetail", formData, null, function(data){
+		postAjax("/user/cr/cr03/insertEstDetail", formData, null, function(data){
 			if(data.resultCode == 200){
 				alert(data.resultMessage);
 				//shipGridView.setData(0);

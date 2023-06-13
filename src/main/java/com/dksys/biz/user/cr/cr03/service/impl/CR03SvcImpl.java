@@ -38,14 +38,17 @@ public class CR03SvcImpl implements CR03Svc {
         return cr03Mapper.selectEstDetailList(param);
     }
     @Override
-    public Map<String, Object> insertEstDetailList(Map<String, String> param) {
-        Map<String, String> estDetail = new HashMap<String, String>();
-        estDetail.put("coCd", param.get("coCd"));
-        estDetail.put("salesCd", param.get("salesCd"));
-        estDetail.put("bomSeq", param.get("bomSeq"));
-        estDetail.put("unitNo", param.get("unitNo"));
-        estDetail.put("revNo", param.get("revNo"));
-        return cr03Mapper.insertEstDetailList(param);
+    public Map<String, Object> insertEstDetailList(Map<String, String> paramMap) {
+Map<String, Object> responseMap = new HashMap<>();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        Type mapList = new TypeToken<ArrayList<Map<String, String>>>() {
+        }.getType();
+        List<Map<String, String>> detailList = gson.fromJson(paramMap.get("detailArr"), mapList);
+        for (Map<String, String> estDetail : detailList) {
+            cr03Mapper.insertEstDetailList(estDetail);
+        }
+        responseMap.put("resultCode",0);
+        return responseMap;
     }
 
     @Override

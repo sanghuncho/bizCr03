@@ -73,7 +73,7 @@ public class CR03Ctr {
     }
     
     @PostMapping(value = "/insertEstDetail")
-    public String insertEstDetailList(@RequestParam Map<String, String> paramMap, ModelMap model) {
+    public String insertEstDetailList(@RequestBody Map<String, String> paramMap, ModelMap model) {
         try {
             Map<String, Object> newEstMap  = cr03svc.insertEstDetailList(paramMap);
             System.out.println(newEstMap+"최종");

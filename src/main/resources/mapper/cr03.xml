@@ -66,9 +66,8 @@
     </update>
     <insert id="insertEstDetailList" parameterType="map">
         INSERT INTO TB_SM01D01
-            (CO_CD, SALES_CD, BOM_SEQ,PART_NO, UNIT_NO,REV_NO)
+            (CO_CD, SALES_CD, BOM_SEQ, UNIT_NO,REV_NO)
         VALUES
-            (#{coCd}, #{salesCd}, #{bomSeq}, #{partNo},
-            #{unitNo}, #{revNo})
+            (#{coCd}, #{salesCd}, #{bomSeq}, #{unitNo}, #{revNo})
     </insert>
 </mapper>
