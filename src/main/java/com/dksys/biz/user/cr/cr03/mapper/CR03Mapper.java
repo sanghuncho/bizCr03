@@ -13,6 +13,7 @@ public interface CR03Mapper {
     int insertEstDetailList(Map<String, String> param);
     int updateEstDetailList(Map<String, String> param);
     int estDetailCount4update(Map<String, String> param);
+    int deleteEstDetailList(Map<String, String> param);
     int deleteEst(Map<String, String> paramMap);
     int deleteAllEstDetails(Map<String, String> paramMap);
 }

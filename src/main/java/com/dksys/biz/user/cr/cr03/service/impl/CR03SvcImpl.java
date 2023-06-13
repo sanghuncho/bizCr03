@@ -78,8 +78,29 @@ public class CR03SvcImpl implements CR03Svc {
             } else {
                 throw new IllegalArgumentException("insert/update failed:" + estDetail);
             }
-            
         }
+        
+        Map<String, String> allDetailParam = new HashMap();
+        allDetailParam.put("coCd", paramMap.get("coCd"));
+        allDetailParam.put("salesCd", paramMap.get("salesCd"));
+        List<Map<String, Object>> detailListDb = cr03Mapper.selectEstDetailList(allDetailParam);
+        for(Map<String, Object> detailElement : detailListDb) {
+            String bomSeq = (String) detailElement.get("bomSeq");
+            boolean match = false;
+            for (Map<String, String> estDetail : detailList) {
+                String bomSeqUpdate = estDetail.get("bomSeq");
+                match = bomSeq.equals(bomSeqUpdate) ? true : false;
+            }
+            
+            if(!match) {
+                Map<String, String> deleted = new HashMap();
+                deleted.put("bomSeq", bomSeq);
+                deleted.put("coCd", paramMap.get("coCd"));
+                deleted.put("salesCd", paramMap.get("salesCd"));
+                cr03Mapper.deleteEstDetailList(deleted);
+            }
+        }
+        
         responseMap.put("resultCode",0);
         return responseMap;
     }

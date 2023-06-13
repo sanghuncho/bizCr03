@@ -56,6 +56,13 @@
         WHERE 1 = 1
           AND CO_CD = #{coCd}
     </delete>
+    <delete id="deleteEstDetailList" parameterType="map">
+        DELETE
+        FROM TB_SM01D01
+        WHERE CO_CD = #{coCd, jdbcType=VARCHAR}
+          AND SALES_CD = #{salesCd, jdbcType=VARCHAR}
+          AND BOM_SEQ = #{bomSeq, jdbcType=VARCHAR}
+    </delete>
     <update id="updateEstDetailList" parameterType="map">
         UPDATE TB_SM01D01
         SET UNIT_NO = #{unitNo, jdbcType=VARCHAR},
