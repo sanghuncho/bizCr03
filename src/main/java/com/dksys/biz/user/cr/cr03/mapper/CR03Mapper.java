@@ -12,6 +12,7 @@ public interface CR03Mapper {
     List<Map<String, Object>> selectEstDetailList(Map<String, String> param);
     int insertEstDetailList(Map<String, String> param);
     int updateEstDetailList(Map<String, String> param);
+    int estDetailCount4update(Map<String, String> param);
     int deleteEst(Map<String, String> paramMap);
     int deleteAllEstDetails(Map<String, String> paramMap);
 }

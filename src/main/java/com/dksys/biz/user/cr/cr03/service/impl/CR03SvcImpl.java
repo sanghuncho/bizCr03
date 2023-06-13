@@ -24,6 +24,7 @@ public class CR03SvcImpl implements CR03Svc {
     public int selectEstCount(Map<String, String> param) {
         return cr03Mapper.selectEstCount(param);
     }
+    
     @Override
     public int selectEstDetailCount(Map<String, String> param) {
         return cr03Mapper.selectEstDetailCount(param);
@@ -33,13 +34,15 @@ public class CR03SvcImpl implements CR03Svc {
     public List<Map<String, Object>> selectEstList(Map<String, String> param) {
         return cr03Mapper.selectEstList(param);
     }
+    
     @Override
     public List<Map<String, Object>> selectEstDetailList(Map<String, String> param) {
         return cr03Mapper.selectEstDetailList(param);
     }
+    
     @Override
     public Map<String, Object> insertEstDetailList(Map<String, String> paramMap) {
-Map<String, Object> responseMap = new HashMap<>();
+        Map<String, Object> responseMap = new HashMap<>();
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         Type mapList = new TypeToken<ArrayList<Map<String, String>>>() {
         }.getType();
@@ -67,7 +70,15 @@ Map<String, Object> responseMap = new HashMap<>();
         }.getType();
         List<Map<String, String>> detailList = gson.fromJson(paramMap.get("detailArr"), mapList);
         for (Map<String, String> estDetail : detailList) {
-            cr03Mapper.updateEstDetailList(estDetail);
+            int count = cr03Mapper.estDetailCount4update(estDetail);
+            if(count == 1) {
+                cr03Mapper.updateEstDetailList(estDetail);
+            } else if(count == 0) {
+                cr03Mapper.insertEstDetailList(estDetail);
+            } else {
+                throw new IllegalArgumentException("insert/update failed:" + estDetail);
+            }
+            
         }
         responseMap.put("resultCode",0);
         return responseMap;
